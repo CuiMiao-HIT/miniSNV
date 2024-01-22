@@ -1,0 +1,9 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/storage/cuimiao/panGenomeKmerCounting/Release'
+echo 'Building file: ../src/htslib/cram/cram_codecs.c'
+echo 'Invoking: Cross GCC Compiler'
+gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/htslib/cram/cram_codecs.d" -MT"src/htslib/cram/cram_codecs.o" -o "src/htslib/cram/cram_codecs.o" "../src/htslib/cram/cram_codecs.c"
+echo 'Finished building: ../src/htslib/cram/cram_codecs.c'
+echo ' '
+make: Leaving directory '/storage/cuimiao/panGenomeKmerCounting/Release'
+ 

@@ -1,0 +1,2494 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2014 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Wed Jul  6 15:03:55 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# default
+.SHELLFLAGS := -c
+# environment
+VSCODE_AGENT_FOLDER = /home/cuimiao/.vscode-server
+# environment
+VSCODE_LOG_NATIVE = false
+# makefile (from 'sources.mk', line 14)
+S_UPPER_SRCS := 
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# makefile (from 'sources.mk', line 6)
+CXX_SRCS := 
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# default
+MAKE_VERSION := 4.1
+# makefile
+CURDIR := /storage/cuimiao/panGenomeKmerCounting/Release
+# makefile
+SHELL = /bin/sh
+# makefile (from 'makefile', line 7)
+RM := rm -rf
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
+# environment
+_ = /home/cuimiao/.vscode-server/bin/30d9c6cd9483b2cc586687151bcbcd635f373630/node
+# makefile (from 'src/tools.d', line 1)
+MAKEFILE_LIST :=  makefile sources.mk src/minimizer/subdir.mk src/htslib/cram/subdir.mk src/htslib/subdir.mk src/clib/subdir.mk src/CPPLIB/JsonObject/subdir.mk src/subdir.mk objects.mk src/htslib/cram/cram_codecs.d src/htslib/cram/cram_decode.d src/htslib/cram/cram_encode.d src/htslib/cram/cram_external.d src/htslib/cram/cram_index.d src/htslib/cram/cram_io.d src/htslib/cram/cram_samtools.d src/htslib/cram/cram_stats.d src/htslib/cram/files.d src/htslib/cram/mFILE.d src/htslib/cram/open_trace_file.d src/htslib/cram/pooled_alloc.d src/htslib/cram/rANS_static.d src/htslib/cram/sam_header.d src/htslib/cram/string_alloc.d src/htslib/bcf_sr_sort.d src/htslib/bgzf.d src/htslib/bgzip.d src/htslib/errmod.d src/htslib/faidx.d src/htslib/hfile.d src/htslib/hfile_gcs.d src/htslib/hfile_net.d src/htslib/hts.d src/htslib/hts_os.d src/htslib/htsfile.d src/htslib/kfunc.d src/htslib/knetfile.d src/htslib/kstring.d src/htslib/md5.d src/htslib/multipart.d src/htslib/probaln.d src/htslib/realn.d src/htslib/regidx.d src/htslib/sam.d src/htslib/synced_bcf_reader.d src/htslib/tabix.d src/htslib/tbx.d src/htslib/textutils.d src/htslib/thread_pool.d src/htslib/vcf.d src/htslib/vcf_sweep.d src/htslib/vcfutils.d src/clib/bam_file.d src/clib/binarys_qsort.d src/clib/kthread.d src/clib/utils.d src/clib/vcf_file.d src/CPPLIB/JsonObject/cJSON.d src/minimizer/minimizer.d src/CPPLIB/JsonObject/CJsonObject.d src/CPPLIB/JsonObject/demo.d src/BWT_aln.d src/MT_align.d src/bwt.d src/haplotype.d src/main.d src/tools.d
+# makefile (from 'sources.mk', line 20)
+CXX_DEPS := 
+# makefile (from 'src/CPPLIB/JsonObject/subdir.mk', line 18)
+C_DEPS :=  ./src/htslib/cram/cram_codecs.d ./src/htslib/cram/cram_decode.d ./src/htslib/cram/cram_encode.d ./src/htslib/cram/cram_external.d ./src/htslib/cram/cram_index.d ./src/htslib/cram/cram_io.d ./src/htslib/cram/cram_samtools.d ./src/htslib/cram/cram_stats.d ./src/htslib/cram/files.d ./src/htslib/cram/mFILE.d ./src/htslib/cram/open_trace_file.d ./src/htslib/cram/pooled_alloc.d ./src/htslib/cram/rANS_static.d ./src/htslib/cram/sam_header.d ./src/htslib/cram/string_alloc.d  ./src/htslib/bcf_sr_sort.d ./src/htslib/bgzf.d ./src/htslib/bgzip.d ./src/htslib/errmod.d ./src/htslib/faidx.d ./src/htslib/hfile.d ./src/htslib/hfile_gcs.d ./src/htslib/hfile_net.d ./src/htslib/hts.d ./src/htslib/hts_os.d ./src/htslib/htsfile.d ./src/htslib/kfunc.d ./src/htslib/knetfile.d ./src/htslib/kstring.d ./src/htslib/md5.d ./src/htslib/multipart.d ./src/htslib/probaln.d ./src/htslib/realn.d ./src/htslib/regidx.d ./src/htslib/sam.d ./src/htslib/synced_bcf_reader.d ./src/htslib/tabix.d ./src/htslib/tbx.d ./src/htslib/textutils.d ./src/htslib/thread_pool.d ./src/htslib/vcf.d ./src/htslib/vcf_sweep.d ./src/htslib/vcfutils.d  ./src/clib/bam_file.d ./src/clib/binarys_qsort.d ./src/clib/kthread.d ./src/clib/utils.d ./src/clib/vcf_file.d  ./src/CPPLIB/JsonObject/cJSON.d 
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# makefile (from 'src/subdir.mk', line 14)
+OBJS :=  ./src/minimizer/minimizer.o  ./src/htslib/cram/cram_codecs.o ./src/htslib/cram/cram_decode.o ./src/htslib/cram/cram_encode.o ./src/htslib/cram/cram_external.o ./src/htslib/cram/cram_index.o ./src/htslib/cram/cram_io.o ./src/htslib/cram/cram_samtools.o ./src/htslib/cram/cram_stats.o ./src/htslib/cram/files.o ./src/htslib/cram/mFILE.o ./src/htslib/cram/open_trace_file.o ./src/htslib/cram/pooled_alloc.o ./src/htslib/cram/rANS_static.o ./src/htslib/cram/sam_header.o ./src/htslib/cram/string_alloc.o  ./src/htslib/bcf_sr_sort.o ./src/htslib/bgzf.o ./src/htslib/bgzip.o ./src/htslib/errmod.o ./src/htslib/faidx.o ./src/htslib/hfile.o ./src/htslib/hfile_gcs.o ./src/htslib/hfile_net.o ./src/htslib/hts.o ./src/htslib/hts_os.o ./src/htslib/htsfile.o ./src/htslib/kfunc.o ./src/htslib/knetfile.o ./src/htslib/kstring.o ./src/htslib/md5.o ./src/htslib/multipart.o ./src/htslib/probaln.o ./src/htslib/realn.o ./src/htslib/regidx.o ./src/htslib/sam.o ./src/htslib/synced_bcf_reader.o ./src/htslib/tabix.o ./src/htslib/tbx.o ./src/htslib/textutils.o ./src/htslib/thread_pool.o ./src/htslib/vcf.o ./src/htslib/vcf_sweep.o ./src/htslib/vcfutils.o  ./src/clib/bam_file.o ./src/clib/binarys_qsort.o ./src/clib/kthread.o ./src/clib/utils.o ./src/clib/vcf_file.o  ./src/CPPLIB/JsonObject/CJsonObject.o ./src/CPPLIB/JsonObject/cJSON.o ./src/CPPLIB/JsonObject/demo.o  ./src/BWT_aln.o ./src/MT_align.o ./src/bwt.o ./src/haplotype.o ./src/main.o ./src/tools.o 
+# makefile (from 'sources.mk', line 5)
+C_UPPER_SRCS := 
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+VSCODE_CWD = /home/cuimiao
+# environment
+SSH_CONNECTION = 127.0.0.1 58022 127.0.0.1 22
+# environment
+PATH = /home/cuimiao/.vscode-server/bin/30d9c6cd9483b2cc586687151bcbcd635f373630/bin/remote-cli:/home/cuimiao/miniconda3/bin:/home/cuimiao/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+# makefile (from 'sources.mk', line 19)
+C_UPPER_DEPS := 
+# environment
+XDG_RUNTIME_DIR = /run/user/1018
+# makefile (from 'sources.mk', line 7)
+C++_SRCS := 
+# environment
+CONDA_PREFIX = /home/cuimiao/miniconda3
+# environment
+VSCODE_LOG_STACK = false
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+LS_COLORS = 
+# makefile (from 'sources.mk', line 17)
+EXECUTABLES := 
+# automatic
+%F = $(notdir $%)
+# makefile (from 'sources.mk', line 16)
+C++_DEPS := 
+# environment
+CONDA_EXE = /home/cuimiao/miniconda3/bin/conda
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /storage/cuimiao/panGenomeKmerCounting/Release
+# environment
+VSCODE_IPC_HOOK_CLI = /run/user/1018/vscode-ipc-e6d9a6e0-f392-4b41-b38e-8faf9c836aae.sock
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# makefile (from 'src/subdir.mk', line 6)
+CPP_SRCS :=  ../src/minimizer/minimizer.cpp  ../src/CPPLIB/JsonObject/CJsonObject.cpp ../src/CPPLIB/JsonObject/demo.cpp  ../src/BWT_aln.cpp ../src/MT_align.cpp ../src/bwt.cpp ../src/haplotype.cpp ../src/main.cpp ../src/tools.cpp 
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/cuimiao
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# makefile (from 'objects.mk', line 5)
+USER_OBJS := 
+# makefile (from 'sources.mk', line 13)
+O_SRCS := 
+# environment
+LOGNAME = cuimiao
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+CONDA_PROMPT_MODIFIER = (base) 
+# automatic
++F = $(notdir $+)
+# makefile (from 'src/subdir.mk', line 22)
+CPP_DEPS :=  ./src/minimizer/minimizer.d  ./src/CPPLIB/JsonObject/CJsonObject.d ./src/CPPLIB/JsonObject/demo.d  ./src/BWT_aln.d ./src/MT_align.d ./src/bwt.d ./src/haplotype.d ./src/main.d ./src/tools.d 
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+MAKELEVEL := 0
+# environment
+CONDA_DEFAULT_ENV = base
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 3
+# environment
+XDG_SESSION_ID = 502
+# environment
+USER = cuimiao
+# makefile
+.DEFAULT_GOAL := src/htslib/cram/cram_codecs.o
+# makefile (from 'sources.mk', line 8)
+OBJ_SRCS := 
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+CONDA_SHLVL = 1
+# default
+MAKE_COMMAND := make
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_CLIENT = 127.0.0.1 58022 22
+# environment
+MAIL = /var/mail/cuimiao
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+BROWSER = /home/cuimiao/.vscode-server/bin/30d9c6cd9483b2cc586687151bcbcd635f373630/bin/helpers/browser.sh
+# environment
+VSCODE_HANDLES_SIGPIPE = true
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# makefile (from 'sources.mk', line 10)
+ASM_SRCS := 
+# makefile (from 'sources.mk', line 9)
+CC_SRCS := 
+# environment
+LC_ALL = C
+# environment
+CONDA_PYTHON_EXE = /home/cuimiao/miniconda3/bin/python
+# makefile (from 'objects.mk', line 7)
+LIBS := -lz -lpthread
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# makefile (from 'sources.mk', line 15)
+CC_DEPS := 
+# environment
+_CE_M = 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# default
+.RECIPEPREFIX := 
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# makefile (from 'sources.mk', line 25)
+SUBDIRS := src src/CPPLIB/JsonObject src/clib src/htslib src/htslib/cram src/minimizer 
+# environment
+LANG = C
+# environment
+VSCODE_EXTHOST_WILL_SEND_SOCKET = true
+# environment
+_CE_CONDA = 
+# makefile (from 'src/CPPLIB/JsonObject/subdir.mk', line 6)
+C_SRCS :=  ../src/htslib/cram/cram_codecs.c ../src/htslib/cram/cram_decode.c ../src/htslib/cram/cram_encode.c ../src/htslib/cram/cram_external.c ../src/htslib/cram/cram_index.c ../src/htslib/cram/cram_io.c ../src/htslib/cram/cram_samtools.c ../src/htslib/cram/cram_stats.c ../src/htslib/cram/files.c ../src/htslib/cram/mFILE.c ../src/htslib/cram/open_trace_file.c ../src/htslib/cram/pooled_alloc.c ../src/htslib/cram/rANS_static.c ../src/htslib/cram/sam_header.c ../src/htslib/cram/string_alloc.c  ../src/htslib/bcf_sr_sort.c ../src/htslib/bgzf.c ../src/htslib/bgzip.c ../src/htslib/errmod.c ../src/htslib/faidx.c ../src/htslib/hfile.c ../src/htslib/hfile_gcs.c ../src/htslib/hfile_net.c ../src/htslib/hts.c ../src/htslib/hts_os.c ../src/htslib/htsfile.c ../src/htslib/kfunc.c ../src/htslib/knetfile.c ../src/htslib/kstring.c ../src/htslib/md5.c ../src/htslib/multipart.c ../src/htslib/probaln.c ../src/htslib/realn.c ../src/htslib/regidx.c ../src/htslib/sam.c ../src/htslib/synced_bcf_reader.c ../src/htslib/tabix.c ../src/htslib/tbx.c ../src/htslib/textutils.c ../src/htslib/thread_pool.c ../src/htslib/vcf.c ../src/htslib/vcf_sweep.c ../src/htslib/vcfutils.c  ../src/clib/bam_file.c ../src/clib/binarys_qsort.c ../src/clib/kthread.c ../src/clib/utils.c ../src/clib/vcf_file.c  ../src/CPPLIB/JsonObject/cJSON.c 
+# variable set hash-table stats:
+# Load=96/1024=9%, Rehash=0, Collisions=45/304=15%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# ../src/minimizer (device 2049, inode 5681769): No files, no impossibilities so far.
+# . (device 2049, inode 5681112): 21 files, no impossibilities.
+# ../src (device 2049, inode 5681120): No files, no impossibilities so far.
+# ../src/clib (device 2049, inode 5681763): No files, no impossibilities so far.
+# ../src/CPPLIB/JsonObject (device 2049, inode 5681762): 7 files, no impossibilities.
+# ../src/htslib/cram (device 2049, inode 5681765): No files, no impossibilities so far.
+# ../src/htslib (device 2049, inode 5681764): No files, no impossibilities so far.
+
+# 28 files, no impossibilities in 7 directories.
+
+# Implicit Rules
+
+src/minimizer/%.o: ../src/minimizer/%.cpp
+#  recipe to execute (from 'src/minimizer/subdir.mk', line 18):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross G++ Compiler'
+	g++ -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/htslib/cram/%.o: ../src/htslib/cram/%.c
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/htslib/%.o: ../src/htslib/%.c
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/clib/%.o: ../src/clib/%.c
+#  recipe to execute (from 'src/clib/subdir.mk', line 30):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/CPPLIB/JsonObject/%.o: ../src/CPPLIB/JsonObject/%.cpp
+#  recipe to execute (from 'src/CPPLIB/JsonObject/subdir.mk', line 28):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross G++ Compiler'
+	g++ -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/CPPLIB/JsonObject/%.o: ../src/CPPLIB/JsonObject/%.c
+#  recipe to execute (from 'src/CPPLIB/JsonObject/subdir.mk', line 35):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+ 
+	@echo ' '
+
+src/%.o: ../src/%.cpp
+#  recipe to execute (from 'src/subdir.mk', line 33):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross G++ Compiler'
+	g++ -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# 7 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+# Not a target:
+../src/htslib/hts_os.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.361295017
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/hts.o: ../src/htslib/hts.c ../src/htslib/hts.c ../src/htslib/config.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/bgzf.h ../src/htslib/cram/cram.h ../src/htslib/cram/cram_samtools.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/cram/sam_header.h ../src/htslib/cram/string_alloc.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kstring.h ../src/htslib/cram/cram_structs.h ../src/htslib/htslib/thread_pool.h ../src/htslib/cram/mFILE.h ../src/htslib/cram/cram_io.h ../src/htslib/cram/misc.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/cram_encode.h ../src/htslib/cram/cram_decode.h ../src/htslib/cram/cram_stats.h ../src/htslib/cram/cram_codecs.h ../src/htslib/cram/cram_index.h ../src/htslib/htslib/cram.h ../src/htslib/htslib/hfile.h ../src/htslib/htslib/hts_endian.h ../src/htslib/version.h ../src/htslib/hts_internal.h ../src/htslib/textutils_internal.h ../src/htslib/htslib/kstring.h ../src/htslib/hfile_internal.h ../src/htslib/htslib/hts_os.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kseq.h ../src/htslib/htslib/ksort.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'hts'
+#  Last modified 2022-07-04 10:16:45.983871598
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+src/minimizer/subdir.mk:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.205297451
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/cram/mFILE.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:42.907925039
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/cram/mFILE.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.413294207
+#  File has been updated.
+#  Successfully updated.
+
+../src/CPPLIB/../clib/utils.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.301295954
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/CPPLIB/JsonObject/cJSON.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.285296203
+#  File has been updated.
+#  Successfully updated.
+
+src/tools.o: ../src/tools.cpp ../src/tools.cpp ../src/tools.hpp ../src/clib/utils.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'tools'
+#  Last modified 2022-07-04 10:16:47.107852087
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/subdir.mk', line 33):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross G++ Compiler'
+	g++ -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/cram/pooled_alloc.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.421294082
+#  File has been updated.
+#  Successfully updated.
+
+../src/align_buff_thread.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.245296828
+#  File has been updated.
+#  Successfully updated.
+
+../src/MT_align.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.233297014
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/vcfutils.o: ../src/htslib/vcfutils.c ../src/htslib/vcfutils.c ../src/htslib/config.h ../src/htslib/htslib/vcfutils.h ../src/htslib/htslib/vcf.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/hts_endian.h ../src/htslib/htslib/kbitset.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'vcfutils'
+#  Last modified 2022-07-04 10:16:46.099869584
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/htslib/cram/open_trace_file.o: ../src/htslib/cram/open_trace_file.c ../src/htslib/cram/open_trace_file.c ../src/htslib/config.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/open_trace_file.h ../src/htslib/cram/mFILE.h ../src/htslib/cram/misc.h ../src/htslib/htslib/hfile.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'open_trace_file'
+#  Last modified 2022-07-04 10:16:42.867925734
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/tools.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.265296516
+#  File has been updated.
+#  Successfully updated.
+
+src/MT_align.o: ../src/MT_align.cpp ../src/MT_align.cpp ../src/MT_align.hpp ../src/CPPLIB/get_option_cpp.hpp ../src/CPPLIB/../clib/desc.h ../src/CPPLIB/../clib/utils.h ../src/align_buff_thread.hpp ../src/htslib/../clib/bam_file.h ../src/htslib/../clib/utils.h ../src/htslib/../clib/kvec.h ../src/htslib/htslib/faidx.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_log.h ../src/htslib/../clib/desc.h ../src/haplotype.hpp ../src/tools.hpp ../src/htslib/../clib/utils.h ../src/minimizer/minimizer.hpp ../src/minimizer/../clib/utils.h ../src/minimizer/../clib/ksort.h ../src/deBGA_index.hpp ../src/align_buff_global.hpp ../src/htslib/../clib/kthread.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'MT_align'
+#  Last modified 2022-07-04 10:16:48.863821621
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/subdir.mk', line 33):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross G++ Compiler'
+	g++ -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+src/htslib/cram/cram_decode.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.047887853
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/md5.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.611895426
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/hfile_gcs.o: ../src/htslib/hfile_gcs.c ../src/htslib/hfile_gcs.c ../src/htslib/config.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/kstring.h ../src/htslib/hfile_internal.h ../src/htslib/htslib/hfile.h ../src/htslib/textutils_internal.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'hfile_gcs'
+#  Last modified 2022-07-04 10:16:43.92390738
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+../src/htslib/cram/cram_decode.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.397294455
+#  File has been updated.
+#  Successfully updated.
+
+../src/CPPLIB/JsonObject/cJSON.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.285296203
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/clib/utils.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.967871875
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/hfile_internal.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.35729508
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/clib/utils.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.301295954
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/realn.o: ../src/htslib/realn.c ../src/htslib/realn.c ../src/htslib/config.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'realn'
+#  Last modified 2022-07-04 10:16:44.923890006
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/clib/binarys_qsort.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.289296141
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+objects.mk:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:30.773366644
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/cram/rANS_static.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.421294082
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/main.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:34.308074789
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+subdir.mk:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+all: Mymain
+#  Phony target (prerequisite of .PHONY).
+#  Command line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/../clib/kvec.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.293296079
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/knetfile.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.583895912
+#  File has been updated.
+#  Successfully updated.
+
+ 
+../src/htslib/cram/cram_codecs.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.397294455
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/faidx.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.551896469
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/cram/cram_external.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:42.883925455
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/vcfutils.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.393294519
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/faidx.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.341295329
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/bcf_sr_sort.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.423898693
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/CPPLIB/JsonObject/subdir.mk:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.005300572
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/cram/cram_external.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.401294394
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/../clib/vcf_file.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.313295766
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/bcf_sr_sort.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.325295579
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/cram/cram_stats.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.409294268
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/tools.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:47.071852712
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/khash.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.437293832
+#  File has been updated.
+#  Successfully updated.
+
+src/main.o: ../src/main.cpp ../src/main.cpp ../src/haplotype.hpp ../src/tools.hpp ../src/htslib/../clib/utils.h ../src/htslib/../clib/bam_file.h ../src/htslib/../clib/utils.h ../src/htslib/../clib/kvec.h ../src/htslib/htslib/faidx.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_log.h ../src/htslib/../clib/desc.h ../src/CPPLIB/get_option_cpp.hpp ../src/CPPLIB/../clib/desc.h ../src/CPPLIB/../clib/utils.h ../src/minimizer/minimizer.hpp ../src/minimizer/../clib/utils.h ../src/minimizer/../clib/ksort.h ../src/deBGA_index.hpp ../src/align_buff_global.hpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'main'
+#  Last modified 2022-07-04 10:16:49.111817321
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/subdir.mk', line 33):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross G++ Compiler'
+	g++ -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/cram/mFILE.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.413294207
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/cram/pooled_alloc.o: ../src/htslib/cram/pooled_alloc.c ../src/htslib/cram/pooled_alloc.c ../src/htslib/config.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/cram/misc.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'pooled_alloc'
+#  Last modified 2022-07-04 10:16:42.987923646
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/htslib/errmod.o: ../src/htslib/errmod.c ../src/htslib/errmod.c ../src/htslib/config.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/ksort.h ../src/htslib/htslib/hts_os.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'errmod'
+#  Last modified 2022-07-04 10:16:43.651912107
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/htslib/vcf.o: ../src/htslib/vcf.c ../src/htslib/vcf.c ../src/htslib/config.h ../src/htslib/htslib/vcf.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/hts_endian.h ../src/htslib/htslib/bgzf.h ../src/htslib/htslib/tbx.h ../src/htslib/htslib/hfile.h ../src/htslib/hts_internal.h ../src/htslib/htslib/hts.h ../src/htslib/textutils_internal.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/hts_endian.h ../src/htslib/htslib/khash_str2int.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kseq.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'vcf'
+#  Last modified 2022-07-04 10:16:47.871838829
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/htslib/hfile_net.o: ../src/htslib/hfile_net.c ../src/htslib/hfile_net.c ../src/htslib/config.h ../src/htslib/hfile_internal.h ../src/htslib/htslib/hfile.h ../src/htslib/htslib/hts_defs.h ../src/htslib/textutils_internal.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/knetfile.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'hfile_net'
+#  Last modified 2022-07-04 10:16:43.819909186
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/cram/misc.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.417294143
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/bgzf.o: ../src/htslib/bgzf.c ../src/htslib/bgzf.c ../src/htslib/config.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/bgzf.h ../src/htslib/htslib/hfile.h ../src/htslib/htslib/thread_pool.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/htslib/khash.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'bgzf'
+#  Last modified 2022-07-04 10:16:44.283901125
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/htslib/thread_pool.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.449293645
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/regidx.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.445293707
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/cram/cram_decode.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.401294394
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/cram/files.o: ../src/htslib/cram/files.c ../src/htslib/cram/files.c ../src/htslib/config.h ../src/htslib/cram/misc.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'files'
+#  Last modified 2022-07-04 10:16:42.851926012
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/CPPLIB/JsonObject/CJsonObject.o: ../src/CPPLIB/JsonObject/CJsonObject.cpp ../src/CPPLIB/JsonObject/CJsonObject.cpp ../src/CPPLIB/JsonObject/CJsonObject.hpp ../src/CPPLIB/JsonObject/cJSON.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'CJsonObject'
+#  Last modified 2022-07-04 10:16:48.391829809
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/CPPLIB/JsonObject/subdir.mk', line 28):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross G++ Compiler'
+	g++ -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/clib/utils.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.301295954
+#  File has been updated.
+#  Successfully updated.
+
+src/clib/binarys_qsort.o: ../src/clib/binarys_qsort.c ../src/clib/binarys_qsort.c ../src/clib/binarys_qsort.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'binarys_qsort'
+#  Last modified 2022-07-04 10:16:45.33188292
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/clib/subdir.mk', line 30):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/htslib/cram/rANS_static.o: ../src/htslib/cram/rANS_static.c ../src/htslib/cram/rANS_static.c ../src/htslib/config.h ../src/htslib/cram/rANS_static.h ../src/htslib/cram/rANS_byte.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'rANS_static'
+#  Last modified 2022-07-04 10:16:43.43191593
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/textutils_internal.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.385294644
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/cram/string_alloc.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:43.055922464
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/probaln.o: ../src/htslib/probaln.c ../src/htslib/probaln.c ../src/htslib/config.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'probaln'
+#  Last modified 2022-07-04 10:16:44.695893968
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+ 
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/clib/kvec.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.293296079
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/cram/string_alloc.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.425294018
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/cram/cram_codecs.o: ../src/htslib/cram/cram_codecs.c ../src/htslib/cram/cram_codecs.c ../src/htslib/config.h ../src/htslib/cram/cram.h ../src/htslib/cram/cram_samtools.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/cram/sam_header.h ../src/htslib/cram/string_alloc.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kstring.h ../src/htslib/cram/cram_structs.h ../src/htslib/htslib/thread_pool.h ../src/htslib/cram/mFILE.h ../src/htslib/cram/cram_io.h ../src/htslib/cram/misc.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/cram_encode.h ../src/htslib/cram/cram_decode.h ../src/htslib/cram/cram_stats.h ../src/htslib/cram/cram_codecs.h ../src/htslib/cram/cram_index.h ../src/htslib/htslib/cram.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'cram_codecs'
+#  Last modified 2022-07-04 10:16:43.91990745
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/htslib/vcf_sweep.o: ../src/htslib/vcf_sweep.c ../src/htslib/vcf_sweep.c ../src/htslib/config.h ../src/htslib/htslib/vcf_sweep.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/vcf.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/hts_endian.h ../src/htslib/htslib/bgzf.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'vcf_sweep'
+#  Last modified 2022-07-04 10:16:45.151886046
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/htslib/cram/cram_stats.o: ../src/htslib/cram/cram_stats.c ../src/htslib/cram/cram_stats.c ../src/htslib/config.h ../src/htslib/cram/cram.h ../src/htslib/cram/cram_samtools.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/cram/sam_header.h ../src/htslib/cram/string_alloc.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kstring.h ../src/htslib/cram/cram_structs.h ../src/htslib/htslib/thread_pool.h ../src/htslib/cram/mFILE.h ../src/htslib/cram/cram_io.h ../src/htslib/cram/misc.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/cram_encode.h ../src/htslib/cram/cram_decode.h ../src/htslib/cram/cram_stats.h ../src/htslib/cram/cram_codecs.h ../src/htslib/cram/cram_index.h ../src/htslib/htslib/cram.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'cram_stats'
+#  Last modified 2022-07-04 10:16:42.967923995
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/htslib/sam.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.445293707
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/bcf_sr_sort.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.325295579
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/BWT_aln.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:49.071818015
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/clib/kthread.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.307883337
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/hts_os.o: ../src/htslib/hts_os.c ../src/htslib/hts_os.c ../src/htslib/config.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'hts_os'
+#  Last modified 2022-07-04 10:16:44.099904322
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+src/clib/vcf_file.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.61987792
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/clib/kthread.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.293296079
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/clib/vcf_file.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.313295766
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/cram/cram_io.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.003888617
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/cram/mFILE.o: ../src/htslib/cram/mFILE.c ../src/htslib/cram/mFILE.c ../src/htslib/config.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/hts_defs.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/mFILE.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'mFILE'
+#  Last modified 2022-07-04 10:16:42.939924482
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+dependents:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+../src/htslib/cram/cram_io.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.40529433
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/khash_str2int.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.437293832
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../makefile.defs:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+src/htslib/cram/cram_samtools.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:42.803926846
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/hfile.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.429293957
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/kseq.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.44129377
+#  File has been updated.
+#  Successfully updated.
+
+Mymain: src/minimizer/minimizer.o src/htslib/cram/cram_codecs.o src/htslib/cram/cram_decode.o src/htslib/cram/cram_encode.o src/htslib/cram/cram_external.o src/htslib/cram/cram_index.o src/htslib/cram/cram_io.o src/htslib/cram/cram_samtools.o src/htslib/cram/cram_stats.o src/htslib/cram/files.o src/htslib/cram/mFILE.o src/htslib/cram/open_trace_file.o src/htslib/cram/pooled_alloc.o src/htslib/cram/rANS_static.o src/htslib/cram/sam_header.o src/htslib/cram/string_alloc.o src/htslib/bcf_sr_sort.o src/htslib/bgzf.o src/htslib/bgzip.o src/htslib/errmod.o src/htslib/faidx.o src/htslib/hfile.o src/htslib/hfile_gcs.o src/htslib/hfile_net.o src/htslib/hts.o src/htslib/hts_os.o src/htslib/htsfile.o src/htslib/kfunc.o src/htslib/knetfile.o src/htslib/kstring.o src/htslib/md5.o src/htslib/multipart.o src/htslib/probaln.o src/htslib/realn.o src/htslib/regidx.o src/htslib/sam.o src/htslib/synced_bcf_reader.o src/htslib/tabix.o src/htslib/tbx.o src/htslib/textutils.o src/htslib/thread_pool.o src/htslib/vcf.o src/htslib/vcf_sweep.o src/htslib/vcfutils.o src/clib/bam_file.o src/clib/binarys_qsort.o src/clib/kthread.o src/clib/utils.o src/clib/vcf_file.o src/CPPLIB/JsonObject/CJsonObject.o src/CPPLIB/JsonObject/cJSON.o src/CPPLIB/JsonObject/demo.o src/BWT_aln.o src/MT_align.o src/bwt.o src/haplotype.o src/main.o src/tools.o
+#  Implicit rule search has not been done.
+#  Last modified 2022-07-04 10:16:50.495793327
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 50):
+	@echo 'Building target: $@'
+	@echo 'Invoking: Cross G++ Linker'
+	g++  -o "Mymain" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Finished building target: $@'
+	@echo ' '
+
+# Not a target:
+../src/htslib/cram/cram_samtools.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.409294268
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/../clib/desc.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.289296141
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/knetfile.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.44129377
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:30.773366644
+#  File has been updated.
+#  Successfully updated.
+
+../src/minimizer/../clib/ksort.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.293296079
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/CPPLIB/JsonObject/demo.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:47.495845354
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/cram/cram_decode.o: ../src/htslib/cram/cram_decode.c ../src/htslib/cram/cram_decode.c ../src/htslib/config.h ../src/htslib/cram/cram.h ../src/htslib/cram/cram_samtools.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/cram/sam_header.h ../src/htslib/cram/string_alloc.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kstring.h ../src/htslib/cram/cram_structs.h ../src/htslib/htslib/thread_pool.h ../src/htslib/cram/mFILE.h ../src/htslib/cram/cram_io.h ../src/htslib/cram/misc.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/cram_encode.h ../src/htslib/cram/cram_decode.h ../src/htslib/cram/cram_stats.h ../src/htslib/cram/cram_codecs.h ../src/htslib/cram/cram_index.h ../src/htslib/htslib/cram.h ../src/htslib/htslib/hts.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'cram_decode'
+#  Last modified 2022-07-04 10:16:45.075887367
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+src/htslib/thread_pool.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.25188431
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/regidx.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.871890909
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/BWT_aln.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.213297326
+#  File has been updated.
+#  Successfully updated.
+
+ 
+# Not a target:
+../src/htslib/thread_pool.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.385294644
+#  File has been updated.
+#  Successfully updated.
+
+../src/align_buff_global.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.233297014
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/regidx.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.37329483
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/config.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.333295454
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/tbx.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.445293707
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/bgzip.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:43.42391607
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/CPPLIB/JsonObject/CJsonObject.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:48.355830434
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/bgzip.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.329295517
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/cram/cram_index.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:42.979923786
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/cram/string_alloc.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.425294018
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/synced_bcf_reader.o: ../src/htslib/synced_bcf_reader.c ../src/htslib/synced_bcf_reader.c ../src/htslib/config.h ../src/htslib/htslib/synced_bcf_reader.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/vcf.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/hts_endian.h ../src/htslib/htslib/tbx.h ../src/htslib/htslib/kseq.h ../src/htslib/htslib/khash_str2int.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/bgzf.h ../src/htslib/htslib/thread_pool.h ../src/htslib/bcf_sr_sort.h ../src/htslib/htslib/kbitset.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'synced_bcf_reader'
+#  Last modified 2022-07-04 10:16:45.863873682
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+../src/htslib/cram/cram_index.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.40529433
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/version.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.393294519
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/faidx.o: ../src/htslib/faidx.c ../src/htslib/faidx.c ../src/htslib/config.h ../src/htslib/htslib/bgzf.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/faidx.h ../src/htslib/htslib/hfile.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kstring.h ../src/htslib/hts_internal.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_log.h ../src/htslib/textutils_internal.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'faidx'
+#  Last modified 2022-07-04 10:16:44.599895635
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/htslib/cram/cram_external.o: ../src/htslib/cram/cram_external.c ../src/htslib/cram/cram_external.c ../src/htslib/config.h ../src/htslib/htslib/hfile.h ../src/htslib/htslib/hts_defs.h ../src/htslib/cram/cram.h ../src/htslib/cram/cram_samtools.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_log.h ../src/htslib/cram/sam_header.h ../src/htslib/cram/string_alloc.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kstring.h ../src/htslib/cram/cram_structs.h ../src/htslib/htslib/thread_pool.h ../src/htslib/cram/mFILE.h ../src/htslib/cram/cram_io.h ../src/htslib/cram/misc.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/cram_encode.h ../src/htslib/cram/cram_decode.h ../src/htslib/cram/cram_stats.h ../src/htslib/cram/cram_codecs.h ../src/htslib/cram/cram_index.h ../src/htslib/htslib/cram.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'cram_external'
+#  Last modified 2022-07-04 10:16:42.903925107
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+src/htslib/multipart.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.591895775
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/bcf_sr_sort.o: ../src/htslib/bcf_sr_sort.c ../src/htslib/bcf_sr_sort.c ../src/htslib/config.h ../src/htslib/bcf_sr_sort.h ../src/htslib/htslib/synced_bcf_reader.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/vcf.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/hts_endian.h ../src/htslib/htslib/tbx.h ../src/htslib/htslib/kbitset.h ../src/htslib/htslib/khash_str2int.h ../src/htslib/htslib/khash.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'bcf_sr_sort'
+#  Last modified 2022-07-04 10:16:44.479897719
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/htslib/kfunc.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.437293832
+#  File has been updated.
+#  Successfully updated.
+
+src/BWT_aln.o: ../src/BWT_aln.cpp ../src/BWT_aln.cpp ../src/BWT_aln.hpp ../src/CPPLIB/get_option_cpp.hpp ../src/CPPLIB/../clib/desc.h ../src/CPPLIB/../clib/utils.h ../src/bwt.hpp ../src/htslib/../clib/utils.h ../src/htslib/../clib/desc.h ../src/htslib/../clib/bam_file.h ../src/htslib/../clib/utils.h ../src/htslib/../clib/kvec.h ../src/htslib/htslib/faidx.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_log.h ../src/haplotype.hpp ../src/tools.hpp ../src/minimizer/minimizer.hpp ../src/minimizer/../clib/utils.h ../src/minimizer/../clib/ksort.h ../src/deBGA_index.hpp ../src/align_buff_global.hpp ../src/htslib/../clib/kthread.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'BWT_aln'
+#  Last modified 2022-07-04 10:16:49.091817667
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/subdir.mk', line 33):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross G++ Compiler'
+	g++ -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/CPPLIB/../clib/desc.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.289296141
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/multipart.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.369294892
+#  File has been updated.
+#  Successfully updated.
+
+.PHONY: all clean dependents
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/CPPLIB/JsonObject/cJSON.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:46.435863752
+#  File has been updated.
+#  Successfully updated.
+
+../src/minimizer/../clib/utils.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.301295954
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/tabix.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.0278882
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/sam.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:47.955837372
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/tabix.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.381294705
+#  File has been updated.
+#  Successfully updated.
+
+../src/clib/vcf_file.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.313295766
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/sam.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.377294768
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/knetfile.o: ../src/htslib/knetfile.c ../src/htslib/knetfile.c ../src/htslib/config.h ../src/htslib/htslib/knetfile.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/hts_defs.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'knetfile'
+#  Last modified 2022-07-04 10:16:44.591895775
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+src/bwt.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:46.119869237
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/cram/cram_io.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.409294268
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/../clib/bam_file.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.289296141
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/cram/cram_samtools.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.409294268
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/cram/subdir.mk:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.193297638
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/hfile.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.275901265
+#  File has been updated.
+#  Successfully updated.
+ 
+
+# Not a target:
+../src/htslib/hfile.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.341295329
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/hts.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.361295017
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/cram/cram_encode.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.547879169
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/hfile_net.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.35729508
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/../CPPLIB/get_option_cpp.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.265296516
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/subdir.mk:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.105299011
+#  File has been updated.
+#  Successfully updated.
+
+../src/BWT_aln.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.217297264
+#  File has been updated.
+#  Successfully updated.
+
+../src/SV_handler.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.233297014
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/kstring.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.44129377
+#  File has been updated.
+#  Successfully updated.
+
+../src/minimizer/minimizer.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.47329327
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/tbx.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.151886046
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/cram/string_alloc.o: ../src/htslib/cram/string_alloc.c ../src/htslib/cram/string_alloc.c ../src/htslib/config.h ../src/htslib/cram/string_alloc.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'string_alloc'
+#  Last modified 2022-07-04 10:16:43.075922118
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+../src/htslib/tbx.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.381294705
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/cram/cram_index.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.40529433
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/thread_pool.o: ../src/htslib/thread_pool.c ../src/htslib/thread_pool.c ../src/htslib/config.h ../src/htslib/thread_pool_internal.h ../src/htslib/htslib/thread_pool.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'thread_pool'
+#  Last modified 2022-07-04 10:16:45.263884101
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+src/haplotype.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:49.227815309
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/minimizer/minimizer.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:43.023923021
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/CPPLIB/JsonObject/demo.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.285296203
+#  File has been updated.
+#  Successfully updated.
+
+src/clib/kthread.o: ../src/clib/kthread.c ../src/clib/kthread.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'kthread'
+#  Last modified 2022-07-04 10:16:45.335882852
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/clib/subdir.mk', line 30):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/htslib/synced_bcf_reader.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.445293707
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/clib/subdir.mk:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.029300197
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/kfunc.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.295900916
+#  File has been updated.
+#  Successfully updated.
+
+src/clib/vcf_file.o: ../src/clib/vcf_file.c ../src/clib/vcf_file.c ../src/clib/vcf_file.h ../src/htslib/htslib/vcf.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/hts_endian.h ../src/clib/utils.h ../src/htslib/htslib/sam.h ../src/clib/desc.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'vcf_file'
+#  Last modified 2022-07-04 10:16:45.643877503
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/clib/subdir.mk', line 30):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+../src/htslib/kfunc.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.365294955
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/subdir.mk:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:34.937301632
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/cram/cram_io.o: ../src/htslib/cram/cram_io.c ../src/htslib/cram/cram_io.c ../src/htslib/config.h ../src/htslib/cram/cram.h ../src/htslib/cram/cram_samtools.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/cram/sam_header.h ../src/htslib/cram/string_alloc.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kstring.h ../src/htslib/cram/cram_structs.h ../src/htslib/htslib/thread_pool.h ../src/htslib/cram/mFILE.h ../src/htslib/cram/cram_io.h ../src/htslib/cram/misc.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/cram_encode.h ../src/htslib/cram/cram_decode.h ../src/htslib/cram/cram_stats.h ../src/htslib/cram/cram_codecs.h ../src/htslib/cram/cram_index.h ../src/htslib/htslib/cram.h ../src/htslib/htslib/hts.h ../src/htslib/cram/open_trace_file.h ../src/htslib/cram/rANS_static.h ../src/htslib/htslib/hfile.h ../src/htslib/htslib/bgzf.h ../src/htslib/htslib/faidx.h ../src/htslib/hts_internal.h ../src/htslib/htslib/hts.h ../src/htslib/textutils_internal.h ../src/htslib/htslib/kstring.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'cram_io'
+#  Last modified 2022-07-04 10:16:45.071887436
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+../src/htslib/htslib/vcfutils.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.449293645
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/cram/cram_samtools.o: ../src/htslib/cram/cram_samtools.c ../src/htslib/cram/cram_samtools.c ../src/htslib/config.h ../src/htslib/cram/cram.h ../src/htslib/cram/cram_samtools.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/cram/sam_header.h ../src/htslib/cram/string_alloc.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kstring.h ../src/htslib/cram/cram_structs.h ../src/htslib/htslib/thread_pool.h ../src/htslib/cram/mFILE.h ../src/htslib/cram/cram_io.h ../src/htslib/cram/misc.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/cram_encode.h ../src/htslib/cram/cram_decode.h ../src/htslib/cram/cram_stats.h ../src/htslib/cram/cram_codecs.h ../src/htslib/cram/cram_index.h ../src/htslib/htslib/cram.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'cram_samtools'
+#  Last modified 2022-07-04 10:16:42.851926012
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+../src/CPPLIB/JsonObject/CJsonObject.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.281296266
+#  File has been updated.
+#  Successfully updated.
+
+../src/CPPLIB/get_option_cpp.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.265296516
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/clib/bam_file.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:46.435863752
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/clib/bam_file.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.289296141
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/textutils.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.179885561
+#  File has been updated.
+#  Successfully updated.
+
+../src/clib/desc.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.289296141
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../makefile.targets:
+ 
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+../src/htslib/textutils.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.381294705
+#  File has been updated.
+#  Successfully updated.
+
+src/CPPLIB/JsonObject/demo.o: ../src/CPPLIB/JsonObject/demo.cpp ../src/CPPLIB/JsonObject/demo.cpp ../src/CPPLIB/JsonObject/CJsonObject.hpp ../src/CPPLIB/JsonObject/cJSON.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'demo'
+#  Last modified 2022-07-04 10:16:47.559844244
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/CPPLIB/JsonObject/subdir.mk', line 28):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross G++ Compiler'
+	g++ -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/cram/cram_encode.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.401294394
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/cram/sam_header.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.171903071
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/regidx.o: ../src/htslib/regidx.c ../src/htslib/regidx.c ../src/htslib/config.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/kseq.h ../src/htslib/htslib/khash_str2int.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/regidx.h ../src/htslib/hts_internal.h ../src/htslib/textutils_internal.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'regidx'
+#  Last modified 2022-07-04 10:16:44.883890702
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+../src/htslib/cram/sam_header.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.425294018
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/../clib/kthread.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.293296079
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/cram.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.429293957
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/MT_align.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:48.843821969
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/hts.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.907872918
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/bwt.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.245296828
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/bgzip.o: ../src/htslib/bgzip.c ../src/htslib/bgzip.c ../src/htslib/config.h ../src/htslib/htslib/bgzf.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_log.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'bgzip'
+#  Last modified 2022-07-04 10:16:43.451915583
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 58):
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(C_DEPS)$(CPP_DEPS) Mymain
+	-@echo ' '
+
+src/htslib/tabix.o: ../src/htslib/tabix.c ../src/htslib/tabix.c ../src/htslib/config.h ../src/htslib/htslib/tbx.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/vcf.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/hts_endian.h ../src/htslib/htslib/kseq.h ../src/htslib/htslib/bgzf.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/regidx.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'tabix'
+#  Last modified 2022-07-04 10:16:45.067887504
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+../src/htslib/md5.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.369294892
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/kstring.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.583895912
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/cram/cram_index.o: ../src/htslib/cram/cram_index.c ../src/htslib/cram/cram_index.c ../src/htslib/config.h ../src/htslib/htslib/bgzf.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hfile.h ../src/htslib/hts_internal.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_log.h ../src/htslib/textutils_internal.h ../src/htslib/htslib/kstring.h ../src/htslib/cram/cram.h ../src/htslib/cram/cram_samtools.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/cram/sam_header.h ../src/htslib/cram/string_alloc.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kstring.h ../src/htslib/cram/cram_structs.h ../src/htslib/htslib/thread_pool.h ../src/htslib/cram/mFILE.h ../src/htslib/cram/cram_io.h ../src/htslib/cram/misc.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/cram_encode.h ../src/htslib/cram/cram_decode.h ../src/htslib/cram/cram_stats.h ../src/htslib/cram/cram_codecs.h ../src/htslib/cram/cram_index.h ../src/htslib/htslib/cram.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'cram_index'
+#  Last modified 2022-07-04 10:16:42.987923646
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+../src/htslib/kstring.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.369294892
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/hts_defs.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.433293894
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/htsfile.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.365294955
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/multipart.o: ../src/htslib/multipart.c ../src/htslib/multipart.c ../src/htslib/config.h ../src/htslib/htslib/kstring.h ../src/htslib/hts_internal.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/textutils_internal.h ../src/htslib/hfile_internal.h ../src/htslib/htslib/hfile.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'multipart'
+#  Last modified 2022-07-04 10:16:44.603895566
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/CPPLIB/JsonObject/cJSON.o: ../src/CPPLIB/JsonObject/cJSON.c ../src/CPPLIB/JsonObject/cJSON.c ../src/CPPLIB/JsonObject/cJSON.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'cJSON'
+#  Last modified 2022-07-04 10:16:46.479862988
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/CPPLIB/JsonObject/subdir.mk', line 35):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+src/htslib/hfile_gcs.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:43.887908006
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/sam.o: ../src/htslib/sam.c ../src/htslib/sam.c ../src/htslib/config.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/bgzf.h ../src/htslib/cram/cram.h ../src/htslib/cram/cram_samtools.h ../src/htslib/htslib/sam.h ../src/htslib/cram/sam_header.h ../src/htslib/cram/string_alloc.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kstring.h ../src/htslib/cram/cram_structs.h ../src/htslib/htslib/thread_pool.h ../src/htslib/cram/mFILE.h ../src/htslib/cram/cram_io.h ../src/htslib/cram/misc.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/cram_encode.h ../src/htslib/cram/cram_decode.h ../src/htslib/cram/cram_stats.h ../src/htslib/cram/cram_codecs.h ../src/htslib/cram/cram_index.h ../src/htslib/htslib/cram.h ../src/htslib/hts_internal.h ../src/htslib/htslib/hts.h ../src/htslib/textutils_internal.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/hfile.h ../src/htslib/htslib/hts_endian.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kseq.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sam'
+#  Last modified 2022-07-04 10:16:47.991836746
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/hts_internal.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.361295017
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/synced_bcf_reader.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.791874932
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/vcf.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.449293645
+#  File has been updated.
+#  Successfully updated.
+
+src/bwt.o: ../src/bwt.cpp ../src/bwt.cpp ../src/bwt.hpp ../src/htslib/../clib/utils.h ../src/htslib/../clib/desc.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'bwt'
+#  Last modified 2022-07-04 10:16:46.14386882
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/subdir.mk', line 33):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross G++ Compiler'
+	g++ -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/htslib/ksort.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.44129377
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/synced_bcf_reader.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.377294768
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/bgzf.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.429293957
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+ 
+../src/htslib/knetfile.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.365294955
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/vcfutils.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:46.087869792
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/cram/open_trace_file.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:42.83592629
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/htsfile.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.235901959
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/cram/open_trace_file.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.417294143
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/hfile.o: ../src/htslib/hfile.c ../src/htslib/hfile.c ../src/htslib/config.h ../src/htslib/htslib/hfile.h ../src/htslib/htslib/hts_defs.h ../src/htslib/hfile_internal.h ../src/htslib/textutils_internal.h ../src/htslib/htslib/kstring.h ../src/htslib/hts_internal.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/khash.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'hfile'
+#  Last modified 2022-07-04 10:16:44.307900708
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/clib/bam_file.o: ../src/clib/bam_file.c ../src/clib/bam_file.c ../src/clib/bam_file.h ../src/clib/utils.h ../src/clib/kvec.h ../src/htslib/htslib/faidx.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_log.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'bam_file'
+#  Last modified 2022-07-04 10:16:46.483862918
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/clib/subdir.mk', line 30):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/clib/bam_file.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.289296141
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/cram/cram_encode.o: ../src/htslib/cram/cram_encode.c ../src/htslib/cram/cram_encode.c ../src/htslib/config.h ../src/htslib/cram/cram.h ../src/htslib/cram/cram_samtools.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/cram/sam_header.h ../src/htslib/cram/string_alloc.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kstring.h ../src/htslib/cram/cram_structs.h ../src/htslib/htslib/thread_pool.h ../src/htslib/cram/mFILE.h ../src/htslib/cram/cram_io.h ../src/htslib/cram/misc.h ../src/htslib/cram/os.h ../src/htslib/htslib/hts_endian.h ../src/htslib/cram/cram_encode.h ../src/htslib/cram/cram_decode.h ../src/htslib/cram/cram_stats.h ../src/htslib/cram/cram_codecs.h ../src/htslib/cram/cram_index.h ../src/htslib/htslib/cram.h ../src/htslib/htslib/hts.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'cram_encode'
+#  Last modified 2022-07-04 10:16:45.603878197
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+../src/haplotype.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.261296577
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/realn.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.915890145
+#  File has been updated.
+#  Successfully updated.
+
+../src/deBGA_index.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.261296577
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/minimizer/minimizer.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.47329327
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/realn.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.37329483
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/cram/sam_header.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.425294018
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/hfile_gcs.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.341295329
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources.mk:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:30.773366644
+#  File has been updated.
+#  Successfully updated.
+
+../src/bwt.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.261296577
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/tbx.o: ../src/htslib/tbx.c ../src/htslib/tbx.c ../src/htslib/config.h ../src/htslib/htslib/tbx.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/bgzf.h ../src/htslib/htslib/hts_endian.h ../src/htslib/hts_internal.h ../src/htslib/htslib/hts.h ../src/htslib/textutils_internal.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/khash.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'tbx'
+#  Last modified 2022-07-04 10:16:45.159885908
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/htslib/kbitset.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.437293832
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/vcf_sweep.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.449293645
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/hts_os.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.433293894
+#  File has been updated.
+#  Successfully updated.
+
+../src/CPPLIB/JsonObject/CJsonObject.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.281296266
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/cram/os.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.417294143
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/hts_log.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.433293894
+#  File has been updated.
+#  Successfully updated.
+
+src/haplotype.o: ../src/haplotype.cpp ../src/haplotype.cpp ../src/haplotype.hpp ../src/tools.hpp ../src/htslib/../clib/utils.h ../src/htslib/../clib/bam_file.h ../src/htslib/../clib/utils.h ../src/htslib/../clib/kvec.h ../src/htslib/htslib/faidx.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_log.h ../src/htslib/../clib/desc.h ../src/CPPLIB/get_option_cpp.hpp ../src/CPPLIB/../clib/desc.h ../src/CPPLIB/../clib/utils.h ../src/minimizer/minimizer.hpp ../src/minimizer/../clib/utils.h ../src/minimizer/../clib/ksort.h ../src/deBGA_index.hpp ../src/align_buff_global.hpp ../src/SV_handler.hpp ../src/htslib/../clib/vcf_file.h ../src/htslib/htslib/vcf.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/hts_endian.h ../src/htslib/../CPPLIB/get_option_cpp.hpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'haplotype'
+#  Last modified 2022-07-04 10:16:49.247814963
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/subdir.mk', line 33):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross G++ Compiler'
+	g++ -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+src/htslib/hfile_net.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:43.799909535
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/cram/cram_encode.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.401294394
+#  File has been updated.
+#  Successfully updated.
+
+src/minimizer/minimizer.o: ../src/minimizer/minimizer.cpp ../src/minimizer/minimizer.cpp ../src/minimizer/minimizer.hpp ../src/minimizer/../clib/utils.h ../src/minimizer/../clib/ksort.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'minimizer'
+#  Last modified 2022-07-04 10:16:43.051922535
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/minimizer/subdir.mk', line 18):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross G++ Compiler'
+	g++ -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/htslib/hts_endian.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.433293894
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/main.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:49.091817667
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/kfunc.o: ../src/htslib/kfunc.c ../src/htslib/kfunc.c ../src/htslib/config.h ../src/htslib/htslib/kfunc.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'kfunc'
+#  Last modified 2022-07-04 10:16:44.315900569
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/cram/cram_structs.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.413294207
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/cram/pooled_alloc.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:42.983923716
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/cram/rANS_byte.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.421294082
+#  File has been updated.
+#  Successfully updated.
+ 
+
+# Not a target:
+../src/htslib/cram/pooled_alloc.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.417294143
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/errmod.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:43.643912246
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/vcf.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:47.831839524
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/MT_align.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.221297201
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/errmod.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.337295392
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/vcf.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.38929458
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/bgzf.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.215902306
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/cram/open_trace_file.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.417294143
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/bgzf.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.329295517
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/../clib/utils.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.301295954
+#  File has been updated.
+#  Successfully updated.
+
+src/clib/utils.o: ../src/clib/utils.c ../src/clib/utils.c ../src/clib/utils.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'utils'
+#  Last modified 2022-07-04 10:16:45.983871598
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/clib/subdir.mk', line 30):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/htslib/textutils.o: ../src/htslib/textutils.c ../src/htslib/textutils.c ../src/htslib/config.h ../src/htslib/htslib/hfile.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/kstring.h ../src/htslib/hts_internal.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_log.h ../src/htslib/textutils_internal.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'textutils'
+#  Last modified 2022-07-04 10:16:45.211885005
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+src/htslib/cram/files.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:42.803926846
+#  File has been updated.
+#  Successfully updated.
+
+../src/haplotype.hpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.261296577
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/cram/files.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.413294207
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/clib/binarys_qsort.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.295883546
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/cram/sam_header.o: ../src/htslib/cram/sam_header.c ../src/htslib/cram/sam_header.c ../src/htslib/config.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/hts_defs.h ../src/htslib/cram/sam_header.h ../src/htslib/cram/string_alloc.h ../src/htslib/cram/pooled_alloc.h ../src/htslib/htslib/khash.h ../src/htslib/htslib/kstring.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sam_header'
+#  Last modified 2022-07-04 10:16:44.243901819
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/cram/subdir.mk', line 60):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+src/htslib/cram/rANS_static.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:43.403916416
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/clib/binarys_qsort.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.289296141
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/cram/rANS_static.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.421294082
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/cram/cram.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.393294519
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/probaln.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.687894106
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/tools.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.265296516
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/thread_pool_internal.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.385294644
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/probaln.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.37329483
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/cram/cram_codecs.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:43.871908284
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/md5.o: ../src/htslib/md5.c ../src/htslib/md5.c ../src/htslib/config.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/hts_endian.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'md5'
+#  Last modified 2022-07-04 10:16:44.639894941
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../src/htslib/htslib/faidx.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.429293957
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/cram/cram_codecs.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.397294455
+#  File has been updated.
+#  Successfully updated.
+
+../src/htslib/htslib/hts.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.433293894
+#  File has been updated.
+#  Successfully updated.
+
+src/htslib/kstring.o: ../src/htslib/kstring.c ../src/htslib/kstring.c ../src/htslib/config.h ../src/htslib/htslib/kstring.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'kstring'
+#  Last modified 2022-07-04 10:16:44.599895635
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/htslib/htsfile.o: ../src/htslib/htsfile.c ../src/htslib/htsfile.c ../src/htslib/config.h ../src/htslib/htslib/hfile.h ../src/htslib/htslib/hts_defs.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/hts_log.h ../src/htslib/htslib/sam.h ../src/htslib/htslib/hts.h ../src/htslib/htslib/vcf.h ../src/htslib/htslib/kstring.h ../src/htslib/htslib/hts_endian.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'htsfile'
+#  Last modified 2022-07-04 10:16:44.259901542
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'src/htslib/subdir.mk', line 99):
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I../src/htslib -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+# Not a target:
+src/htslib/vcf_sweep.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:45.143886186
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/cram/cram_stats.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:42.963924065
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../src/htslib/vcf_sweep.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.38929458
+#  File has been updated.
+#  Successfully updated.
+
+ 
+# Not a target:
+../src/htslib/cram/cram_stats.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-29 16:40:35.409294268
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/htslib/hts_os.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 10:16:44.023905642
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+../makefile.init:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# files hash-table stats:
+# Load=274/1024=27%, Rehash=0, Collisions=177/1927=9%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 376 / storage = 7945 B / avg = 21 B
+# current buf: size = 8162 B / used = 7945 B / count = 376 / avg = 21 B
+
+# strcache performance: lookups = 2617 / hit rate = 85%
+# hash-table stats:
+# Load=376/8192=5%, Rehash=0, Collisions=10/2617=0%
+# Finished Make data base on Wed Jul  6 15:03:55 2022
+
+ 

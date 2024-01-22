@@ -1,0 +1,1077 @@
+//RN BEGIN
+
+// void create_candidate_code(char *BAM_PATH, char *INDEX_PATH, std :: map<uint32_t , PosInfo> & candidata_p1, std :: map <uint32_t , int > &secondaryReads, int give_chrid, uint64_t readbam_start, uint64_t readbam_end) {// analize bam file
+//     std ::map<uint32_t, PosInfo> pos_infos; // real_refpos , posinfo
+//     Simple_ref_handler ref;
+//     ref.load_bin_ref(INDEX_PATH);
+
+//     hts_idx_t *idxt = hts_idx_load(BAM_PATH, 1);
+//     hts_itr_t * itrt = bam_itr_queryi(idxt, give_chrid, readbam_start, readbam_end);
+//     samFile *bam_in = sam_open(BAM_PATH, "r"); // open bam file
+//     bam1_t *readinbam = bam_init1();
+//     while (sam_itr_next(bam_in, itrt, readinbam) >= 0) {
+//         int chrid = readinbam->core.tid;
+//         int stand = (int)readinbam->core.flag;
+//         int qual = (int)readinbam->core.qual;//read MQ
+//         string cigar = getCigar(readinbam);
+//         uint32_t start_readalnref_pos = readinbam->core.pos + 1;
+//         if (chrid != -1 && (stand == 256 || stand == 272)) {
+//             std::smatch sp;
+//             std::regex pattern("\\d*[M,=,X,I,D,S,H]");
+//             string::const_iterator iterStart = cigar.begin();
+//             string::const_iterator iterEnd = cigar.end();
+//             string temp;
+//             int temp_size, change_size;
+//             uint32_t current_refpos = start_readalnref_pos;
+//             while (std::regex_search(iterStart, iterEnd, sp, pattern)) {
+//                 temp = sp[0];
+//                 temp_size = temp.size();
+//                 change_size = stoi(temp.substr(0, temp_size - 1));
+//                 if (temp[temp_size - 1] == 'M' || temp[temp_size - 1] == '=' || temp[temp_size - 1] == 'X' || temp[temp_size - 1] == 'D') {
+//                     for (int i = 0; i < change_size; i++) {
+//                         secondaryReads[current_refpos] = secondaryReads[current_refpos] + 1;
+//                         current_refpos = current_refpos + 1;
+//                     }
+//                 }
+//                 iterStart = sp[0].second;
+//             }
+//         }
+//         if (chrid != -1 && (stand == 0 || stand == 16)) {
+//             std :: string readname = bam_get_qname(readinbam);
+//             std :: string readseq = getSeq(readinbam);
+//             std :: string basequal = getQual(readinbam);
+                        
+//             // process poses before the start_readalnref_pos
+//             std :: map<uint32_t, PosInfo>::iterator itpos = pos_infos.begin();
+//             while (itpos != pos_infos.end()) { // the read's chrID can find in map
+//                 if (itpos->first > start_readalnref_pos) break;
+//                 if (itpos->second.Vrts.size() == 0) {
+//                     itpos = pos_infos.erase(itpos);
+//                     continue;
+//                 }
+//                 int ALLreads_num = itpos->second.ALLreads.size();
+//                 if (ALLreads_num < 2) {
+//                     itpos = pos_infos.erase(itpos);
+//                     continue;
+//                 }
+//                 // candidate vrt add
+//                 float RN = 1.0 - (float)itpos->second.ref_num/ALLreads_num;
+//                 std :: vector <VRT_info> temp_V;
+//                 int temp_V_num = 0;
+//                 for (auto onevrt : itpos->second.Vrts) {
+//                     if (onevrt.vrttype == 0 && (float)onevrt.suppvrt_read / ALLreads_num < 0.2) continue;
+//                     if(onevrt.vrttype == 1 && RN < 0.15) continue;
+//                     temp_V.push_back(onevrt);
+//                     temp_V_num = temp_V_num + 1;
+//                 }
+//                 if(temp_V_num == 0){
+//                     itpos = pos_infos.erase(itpos);
+//                     continue;
+//                 }
+//                 sort(temp_V.begin(), temp_V.end());
+//                 PosInfo addcandidatepos;
+//                 for (int i = 0; i < temp_V_num; i++) {
+//                     if(i == 2) break;
+//                     addcandidatepos.Vrts.push_back(temp_V[i]);
+//                     addcandidatepos.vrt_num = addcandidatepos.vrt_num + 1;
+//                 }
+//                 addcandidatepos.ref_num = itpos->second.ref_num;
+//                 addcandidatepos.max_vrtlengthinref = itpos->second.max_vrtlengthinref;
+//                 addcandidatepos.ALLreads.assign(itpos->second.ALLreads.begin(), itpos->second.ALLreads.end());
+//                 candidata_p1[itpos->first] = addcandidatepos;
+
+//                 // delect the processed pos
+//                 itpos = pos_infos.erase(itpos);
+//             }
+//             // add newread_pos code
+//             addreadposin_code(ref, chrid, readname, stand, qual, start_readalnref_pos, cigar, readseq, basequal, pos_infos);
+//         }
+//     }
+//     // process the last part
+//     std ::map<uint32_t, PosInfo>::iterator itpos = pos_infos.begin();
+//     while (itpos != pos_infos.end()) { // the read's chrID can find in map
+//         if (itpos->second.Vrts.size() == 0) {
+//             itpos++;
+//             continue;
+//         }
+//         int ALLreads_num = itpos->second.ALLreads.size();
+//         if (ALLreads_num < 2) {
+//             itpos++;
+//             continue;
+//         }
+//         // candidate vrt add
+//         float RN = 1.0 - (float)itpos->second.ref_num/ALLreads_num;
+//         std :: vector <VRT_info> temp_V;
+//         int temp_V_num = 0;
+//         for (auto onevrt : itpos->second.Vrts) {
+//             if (onevrt.vrttype == 0 && (float)onevrt.suppvrt_read / ALLreads_num < 0.2) continue;
+//             if(onevrt.vrttype == 1 && RN < 0.15) continue;
+//             temp_V.push_back(onevrt);
+//             temp_V_num = temp_V_num + 1;
+//         }
+//         if(temp_V_num == 0){
+//             itpos = pos_infos.erase(itpos);
+//             continue;
+//         }
+//         sort(temp_V.begin(), temp_V.end());
+//         PosInfo addcandidatepos;
+//         for (int i = 0; i < temp_V_num; i++) {
+//             if(i == 2) break;
+//             addcandidatepos.Vrts.push_back(temp_V[i]);
+//             addcandidatepos.vrt_num = addcandidatepos.vrt_num + 1;
+//         }
+//         addcandidatepos.ref_num = itpos->second.ref_num;
+//         addcandidatepos.max_vrtlengthinref = itpos->second.max_vrtlengthinref;
+//         addcandidatepos.ALLreads.assign(itpos->second.ALLreads.begin(), itpos->second.ALLreads.end());
+//         candidata_p1[itpos->first] = addcandidatepos;
+//         itpos++;
+//     }
+//     hts_idx_destroy(idxt);
+//     bam_itr_destroy(itrt);
+//     sam_close(bam_in);
+//     bam_destroy1(readinbam);
+//     pos_infos.clear();
+
+//     // aln pos with haplotype    
+//     // heplotype index
+//     MM_idx_loader *idx = (MM_idx_loader *)new (MM_idx_loader);
+//     idx->load_window_ID_idx(INDEX_PATH);
+//     idx->load_all_index(INDEX_PATH, NULL, true);
+//     hap_string_loader_single_thread hl_r1;
+//     int window_ID;
+//     std::string ref_str;
+//     String_list_and_var_list hl_str_v;
+//     uint32_t aln_start_refpos = 0;
+//     int start_back = 10;
+//     std ::map<uint32_t, PosInfo>::iterator itcandidateP1 = candidata_p1.begin(); // real_refpos , vrtinfos
+//     while (itcandidateP1 != candidata_p1.end()) { // which pos
+//         int maxvrtlength = itcandidateP1->second.max_vrtlengthinref;
+//         uint32_t realrefpos = itcandidateP1->first;
+//         // change variable
+//         if (realrefpos + maxvrtlength >= aln_start_refpos + 149) {
+//             aln_start_refpos = realrefpos - start_back;
+//             // start(the first block)
+//             if (realrefpos + maxvrtlength < start_back)
+//                 aln_start_refpos = 0;
+//             // load from buff
+//             window_ID = hl_r1.get_windows_ID(give_chrint, aln_start_refpos, idx);
+//             // reference 300bp part
+//             ref.load_ref_from_buff(idx->wb_info[window_ID].chrID, idx->wb_info[window_ID].region_st, idx->wb_info[window_ID].region_length, ref_str);
+//             // heplotype sv
+//             hl_str_v = hl_r1.get_string_list_and_var_list(window_ID, ref_str, idx);
+//         }
+//         // aln pos with haplotype
+//         if (realrefpos + maxvrtlength < aln_start_refpos + 149) {
+//             uint32_t gap_s_refpos = realrefpos - idx->wb_info[window_ID].region_st;
+//             for (int onevrtF = 0; onevrtF < itcandidateP1->second.Vrts.size(); onevrtF++) { // one vrt
+//                 int findinhpflag = 0;
+//                 std ::string readsv = itcandidateP1->second.Vrts[onevrtF].ALT;
+//                 for (auto hp_one : hl_str_v.var_l) { // one hp
+//                     for (int i = 0; i < hp_one.size(); i++) { // one hp's one sv
+//                         if (hp_one[i].ref_pos < gap_s_refpos)
+//                             continue;
+//                         if (gap_s_refpos < hp_one[i].ref_pos)
+//                             break;
+
+//                         if (gap_s_refpos == hp_one[i].ref_pos && itcandidateP1->second.Vrts[onevrtF].length_in_ref == hp_one[i].REF.size()) {
+//                             std ::string hp_vrtstr = hp_one[i].ALT;
+//                             if (hp_vrtstr == readsv) {
+//                                 itcandidateP1->second.Vrts[onevrtF].isknown = 0;
+//                                 itcandidateP1->second.Vrts[onevrtF].REF = hp_one[i].REF;
+//                                 findinhpflag = 1;
+//                                 break;
+//                             }
+//                         }
+//                     }
+//                     if (findinhpflag == 1) break;
+//                 }
+//                 if (findinhpflag == 0) {
+//                     itcandidateP1->second.Vrts[onevrtF].isknown = 1;
+//                     itcandidateP1->second.Vrts[onevrtF].REF = ref_str.substr(gap_s_refpos, itcandidateP1->second.Vrts[onevrtF].length_in_ref);
+//                 }
+//             }
+//         }
+//         itcandidateP1++;
+//     }
+//     delete (idx);
+//     idx = nullptr;
+// }
+
+// void create_highvrt_p2vrt(char *BED_PATH, std :: map<uint32_t , PosInfo> candidata_p1, std :: map <uint32_t , int> secondaryReads, std :: vector <vrtReault> &ResultV, std :: map <string, vector<vrtPOS_bam>> &p2vrtpos, std :: map<uint32_t, std :: vector <P2vrt>> &p2vrt) {
+//     std ::vector<uint32_t> snv_posline;
+//     snv_posline.push_back(0);
+//     std ::map<uint32_t, PosInfo>::iterator itcan1 = candidata_p1.begin();
+//     while (itcan1 != candidata_p1.end()) {
+//         snv_posline.push_back(itcan1->first);
+//         itcan1++;
+//     }
+//     snv_posline.push_back(4294967294);
+//     sort(snv_posline.begin(), snv_posline.end());
+
+//     std :: vector <range_homo> homo_ran;
+//     load_bed(BED_PATH, opt->chrID, homo_ran);
+
+//     uint32_t per_pos, next_pos;
+//     for (int snvpos_inx = 1; snvpos_inx < snv_posline.size() - 1; snvpos_inx++) { // every pos process
+//         uint32_t realrefpos_now = snv_posline[snvpos_inx];
+//         std ::map<uint32_t, PosInfo>::iterator itcan2 = candidata_p1.find(realrefpos_now);
+//         if (itcan2 != candidata_p1.end()) { // find all vrt in the pos
+//             int secondnum = 0;
+//             std ::map<uint32_t, int>::iterator itsec = secondaryReads.find(realrefpos_now);
+//             if (itsec != secondaryReads.end()) secondnum = itsec->second;
+//             if (secondnum > 100) continue;
+
+//             per_pos = snv_posline[snvpos_inx - 1];
+//             next_pos = snv_posline[snvpos_inx + 1];
+//             int idx = (realrefpos_now - 25) / 50;
+//             uint32_t idx_refpos = idx * 50;
+//             int vrtNUM = itcan2->second.vrt_num;
+//             int supprefnum = itcan2->second.ref_num;
+//             int ALLreads_num = itcan2->second.ALLreads.size();
+
+//             int if2 = 0;
+//             int inhomo = find_homo(homo_ran, realrefpos_now);//1:in 0:out
+//             if (ALLreads_num >= 3) {
+//                 int vrt_id = 1;
+//                 int r1;
+//                 for (auto onevrt : itcan2->second.Vrts) {
+//                     int line0 = onevrt.suppstand0, line16 = onevrt.suppstand16;
+//                     int del = string_bias(line0, line16);
+//                     if(del == 1) {
+//                         if(vrt_id == 1) r1 = onevrt.suppvrt_read;
+//                         continue;
+//                     }
+//                     int ifResult = 0;
+//                     int VaRnum = onevrt.suppvrt_read + supprefnum;
+//                     float rate_ = (float)onevrt.suppvrt_read/ALLreads_num;
+//                     if(onevrt.vrttype == 0){//SNP
+//                         if(rate_ >= 0.3){
+//                             if(onevrt.isknown == 0 || (per_pos <= itcan2->first-10 && next_pos>=itcan2->first+10 && vrtNUM == 1)) ifResult = 1;
+//                         } else { // part2 vrt
+//                             P2vrt snv1;
+//                             snv1.refpos = itcan2->first;
+//                             snv1.REF = onevrt.REF;
+//                             snv1.ALT = onevrt.ALT;
+//                             p2vrt[idx_refpos].push_back(snv1);
+//                             if2 = 1;
+//                         }
+//                     } else if(onevrt.vrttype == 1) {//INDEL
+//                         if (onevrt.isknown == 0) ifResult = 1;
+//                         else{
+//                             if(vrt_id == 1) {
+//                                 if(rate_ >= 0.4) ifResult = 1;
+//                                 else if(inhomo == 0 && rate_ >= 0.3) { // part2 vrt
+//                                     P2vrt snv1;
+//                                     snv1.refpos = itcan2->first;
+//                                     snv1.REF = onevrt.REF;
+//                                     snv1.ALT = onevrt.ALT;
+//                                     p2vrt[idx_refpos].push_back(snv1);
+//                                     if2 = 1;
+//                                 }
+//                             }
+//                             else if (vrt_id == 2 && (float)onevrt.suppvrt_read/r1 >= 0.3) ifResult = 1;
+//                         }
+//                     }
+//                     if (ifResult == 1) { // part1 result
+//                         vrtReault c1;
+//                         c1.ref_pos = itcan2->first;
+//                         c1.vrtAref_num = VaRnum;
+//                         c1.isknown = onevrt.isknown;
+//                         c1.vrttype = onevrt.vrttype;
+//                         c1.vrt_num = onevrt.suppvrt_read;
+//                         c1.all_num = ALLreads_num;
+//                         c1.REF = onevrt.REF;
+//                         c1.ALT = onevrt.ALT;
+//                         ResultV.push_back(c1);
+//                     }
+//                     if(vrt_id == 1) r1 = onevrt.suppvrt_read;
+//                     vrt_id = vrt_id + 1;
+//                 }
+//             } else {
+//                 int vrt_id = 1;
+//                 int r1;
+//                 for (auto onevrt : itcan2->second.Vrts) {
+//                     int ifResult = 0;
+//                     int VaRnum = onevrt.suppvrt_read + supprefnum;
+//                     float rate_ = (float)onevrt.suppvrt_read/ALLreads_num;
+//                     if(onevrt.vrttype == 0){
+//                         if(rate_ >= 0.3){
+//                             if(onevrt.isknown == 0 || (per_pos <= itcan2->first-10 && next_pos>=itcan2->first+10 && vrtNUM == 1)) ifResult = 1;
+//                         } else { // part2 vrt
+//                             P2vrt snv1;
+//                             snv1.refpos = itcan2->first;
+//                             snv1.REF = onevrt.REF;
+//                             snv1.ALT = onevrt.ALT;
+//                             p2vrt[idx_refpos].push_back(snv1);
+//                             if2 = 1;
+//                         }
+//                     } else if(onevrt.vrttype == 1){
+//                         if (onevrt.isknown == 0) ifResult = 1;
+//                         else{
+//                             if(vrt_id == 1){
+//                                 if(rate_ >= 0.4) ifResult = 1;
+//                                 else if(inhomo == 0 && rate_ >= 0.3) { // part2 vrt
+//                                     P2vrt snv1;
+//                                     snv1.refpos = itcan2->first;
+//                                     snv1.REF = onevrt.REF;
+//                                     snv1.ALT = onevrt.ALT;
+//                                     p2vrt[idx_refpos].push_back(snv1);
+//                                     if2 = 1;
+//                                 }
+//                             } else if (vrt_id == 2) {
+//                                 if((float)onevrt.suppvrt_read/r1 >= 0.3) ifResult = 1;
+//                             }
+//                         }
+//                     }
+//                     if (ifResult == 1) { // part1 result
+//                         vrtReault c1;
+//                         // c1.chrID = itcan2->second.chrID;
+//                         c1.ref_pos = itcan2->first;
+//                         c1.vrtAref_num = VaRnum;
+//                         c1.isknown = onevrt.isknown;
+//                         c1.vrttype = onevrt.vrttype;
+//                         c1.vrt_num = onevrt.suppvrt_read;
+//                         c1.all_num = ALLreads_num;
+//                         c1.REF = onevrt.REF;
+//                         c1.ALT = onevrt.ALT;
+//                         ResultV.push_back(c1);
+//                     }
+//                     if(vrt_id == 1) r1 = onevrt.suppvrt_read;
+//                     vrt_id = vrt_id + 1;
+//                 }
+//             }
+//             if (if2 == 1) { // part2 reads
+//                 for (auto read : itcan2->second.ALLreads) {
+//                     std ::map<string, vector<vrtPOS_bam>>::iterator it = p2vrtpos.find(read.readid);
+//                     if (it != p2vrtpos.end()) { // can find readid
+//                         vrtPOS_bam tmpsnvpos;
+//                         tmpsnvpos.stand = read.stand;
+//                         std ::vector<vrtPOS_bam>::iterator itstand = find(it->second.begin(), it->second.end(), tmpsnvpos);
+//                         if (itstand != it->second.end()) {
+//                             std ::vector<uint32_t>::iterator itsvpos = find(itstand->ref_pos_snv.begin(), itstand->ref_pos_snv.end(), idx_refpos);
+//                             if (itsvpos != itstand->ref_pos_snv.end()){}
+//                             else itstand->ref_pos_snv.push_back(idx_refpos);
+//                         } else {
+//                             tmpsnvpos.ref_pos_snv.push_back(idx_refpos);
+//                             it->second.push_back(tmpsnvpos);
+//                         }
+//                     } else { // cannot find readid
+//                         vrtPOS_bam tmpsnvpos;
+//                         tmpsnvpos.stand = read.stand;
+//                         tmpsnvpos.ref_pos_snv.push_back(idx_refpos);
+//                         p2vrtpos[read.readid].push_back(tmpsnvpos);
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
+//RN END
+
+
+//2023.09.01 best result
+
+void create_candidate_code(char *BAM_PATH, char *INDEX_PATH, std :: map<uint32_t , PosInfo> & candidata_p1, std :: map <uint32_t , int > &secondaryReads, int give_chrid, uint64_t readbam_start, uint64_t readbam_end) {// analize bam file
+    std ::map<uint32_t, PosInfo> pos_infos; // real_refpos , posinfo
+    Simple_ref_handler ref;
+    ref.load_bin_ref(INDEX_PATH);
+
+    hts_idx_t *idxt = hts_idx_load(BAM_PATH, 1);
+    hts_itr_t * itrt = bam_itr_queryi(idxt, give_chrid, readbam_start, readbam_end);
+    samFile *bam_in = sam_open(BAM_PATH, "r"); // open bam file
+    bam1_t *readinbam = bam_init1();
+    while (sam_itr_next(bam_in, itrt, readinbam) >= 0) {
+        int chrid = readinbam->core.tid;
+        int stand = (int)readinbam->core.flag;
+        int qual = (int)readinbam->core.qual;//read MQ
+        string cigar = getCigar(readinbam);
+        uint32_t start_readalnref_pos = readinbam->core.pos + 1;
+        if (chrid != -1 && (stand == 256 || stand == 272)) {
+            std::smatch sp;
+            std::regex pattern("\\d*[M,=,X,I,D,S,H]");
+            string::const_iterator iterStart = cigar.begin();
+            string::const_iterator iterEnd = cigar.end();
+            string temp;
+            int temp_size, change_size;
+            uint32_t current_refpos = start_readalnref_pos;
+            while (std::regex_search(iterStart, iterEnd, sp, pattern)) {
+                temp = sp[0];
+                temp_size = temp.size();
+                change_size = stoi(temp.substr(0, temp_size - 1));
+                if (temp[temp_size - 1] == 'M' || temp[temp_size - 1] == '=' || temp[temp_size - 1] == 'X' || temp[temp_size - 1] == 'D') {
+                    for (int i = 0; i < change_size; i++) {
+                        secondaryReads[current_refpos] = secondaryReads[current_refpos] + 1;
+                        current_refpos = current_refpos + 1;
+                    }
+                }
+                iterStart = sp[0].second;
+            }
+        }
+        if (chrid != -1 && (stand == 0 || stand == 16)) {
+            std :: string readname = bam_get_qname(readinbam);
+            std :: string readseq = getSeq(readinbam);
+            std :: string basequal = getQual(readinbam);
+                        
+            // process poses before the start_readalnref_pos
+            std :: map<uint32_t, PosInfo>::iterator itpos = pos_infos.begin();
+            while (itpos != pos_infos.end()) { // the read's chrID can find in map
+                if (itpos->first > start_readalnref_pos) break;
+                if (itpos->second.Vrts.size() == 0) {
+                    itpos = pos_infos.erase(itpos);
+                    continue;
+                }
+                int ALLreads_num = itpos->second.ALLreads.size();
+                if (ALLreads_num < 2) {
+                    itpos = pos_infos.erase(itpos);
+                    continue;
+                }
+                // candidate vrt add
+                PosInfo addcandidatepos;
+                for (auto onevrt : itpos->second.Vrts) {
+                    if ((float)onevrt.suppvrt_read / ALLreads_num < 0.15) continue;
+                    addcandidatepos.Vrts.push_back(onevrt);
+                    addcandidatepos.vrt_num = addcandidatepos.vrt_num + 1;
+                } 
+                if (addcandidatepos.vrt_num > 0) {
+                    addcandidatepos.ref_num = itpos->second.ref_num;
+                    addcandidatepos.max_vrtlengthinref = itpos->second.max_vrtlengthinref;
+                    addcandidatepos.ALLreads.assign(itpos->second.ALLreads.begin(), itpos->second.ALLreads.end());
+                    candidata_p1[itpos->first] = addcandidatepos;
+                }
+                // delect the processed pos
+                itpos = pos_infos.erase(itpos);
+            }
+            // add newread_pos code
+            addreadposin_code(ref, chrid, readname, stand, qual, start_readalnref_pos, cigar, readseq, basequal, pos_infos);
+        }
+    }
+    // process the last part
+    std ::map<uint32_t, PosInfo>::iterator itpos = pos_infos.begin();
+    while (itpos != pos_infos.end()) { // the read's chrID can find in map
+        if (itpos->second.Vrts.size() == 0) {
+            itpos++;
+            continue;
+        }
+        int ALLreads_num = itpos->second.ALLreads.size();
+        if (ALLreads_num < 2) {
+            itpos++;
+            continue;
+        }
+        // candidate vrt add
+        PosInfo addcandidatepos;
+        for (auto onevrt : itpos->second.Vrts) {
+            if ((float)onevrt.suppvrt_read / ALLreads_num < 0.15)
+                continue;
+            addcandidatepos.Vrts.push_back(onevrt);
+            addcandidatepos.vrt_num = addcandidatepos.vrt_num + 1;
+        }
+        if (addcandidatepos.vrt_num > 0) {
+            // addcandidatepos.chrID = itpos->second.chrID;
+            addcandidatepos.ref_num = itpos->second.ref_num;
+            addcandidatepos.max_vrtlengthinref = itpos->second.max_vrtlengthinref;
+            addcandidatepos.ALLreads.assign(itpos->second.ALLreads.begin(), itpos->second.ALLreads.end());
+            candidata_p1[itpos->first] = addcandidatepos;
+        }
+        itpos++;
+    }
+    hts_idx_destroy(idxt);
+    bam_itr_destroy(itrt);
+    sam_close(bam_in);
+    bam_destroy1(readinbam);
+    pos_infos.clear();
+
+    // aln pos with haplotype    
+    // heplotype index
+    MM_idx_loader *idx = (MM_idx_loader *)new (MM_idx_loader);
+    idx->load_window_ID_idx(INDEX_PATH);
+    idx->load_all_index(INDEX_PATH, NULL, true);
+    hap_string_loader_single_thread hl_r1;
+    int window_ID;
+    std::string ref_str;
+    String_list_and_var_list hl_str_v;
+    uint32_t aln_start_refpos = 0;
+    int start_back = 10;
+    std ::map<uint32_t, PosInfo>::iterator itcandidateP1 = candidata_p1.begin(); // real_refpos , vrtinfos
+    while (itcandidateP1 != candidata_p1.end()) { // which pos
+        // int chrid = itcandidateP1->second.chrID;
+        int maxvrtlength = itcandidateP1->second.max_vrtlengthinref;
+        uint32_t realrefpos = itcandidateP1->first;
+        // change variable
+        if (realrefpos + maxvrtlength >= aln_start_refpos + 149) {
+            aln_start_refpos = realrefpos - start_back;
+            // start(the first block)
+            if (realrefpos + maxvrtlength < start_back)
+                aln_start_refpos = 0;
+            // load from buff
+            window_ID = hl_r1.get_windows_ID(give_chrint, aln_start_refpos, idx);
+            // reference 300bp part
+            ref.load_ref_from_buff(idx->wb_info[window_ID].chrID, idx->wb_info[window_ID].region_st, idx->wb_info[window_ID].region_length, ref_str);
+            // heplotype sv
+            hl_str_v = hl_r1.get_string_list_and_var_list(window_ID, ref_str, idx);
+        }
+        // aln pos with haplotype
+        if (realrefpos + maxvrtlength < aln_start_refpos + 149) {
+            uint32_t gap_s_refpos = realrefpos - idx->wb_info[window_ID].region_st;
+            for (int onevrtF = 0; onevrtF < itcandidateP1->second.Vrts.size(); onevrtF++) { // one vrt
+                int findinhpflag = 0;
+                std ::string readsv = itcandidateP1->second.Vrts[onevrtF].ALT;
+                for (auto hp_one : hl_str_v.var_l) { // one hp
+                    for (int i = 0; i < hp_one.size(); i++) { // one hp's one sv
+                        // if (hp_one[i].ref_pos < mbsubstracthp)
+                        if (hp_one[i].ref_pos < gap_s_refpos)
+                            continue;
+                        if (gap_s_refpos < hp_one[i].ref_pos)
+                            break;
+
+                        if (gap_s_refpos == hp_one[i].ref_pos && itcandidateP1->second.Vrts[onevrtF].length_in_ref == hp_one[i].REF.size()) {
+                            std ::string hp_vrtstr = hp_one[i].ALT;
+                            if (hp_vrtstr == readsv) {
+                                itcandidateP1->second.Vrts[onevrtF].isknown = 0;
+                                itcandidateP1->second.Vrts[onevrtF].REF = hp_one[i].REF;
+                                findinhpflag = 1;
+                                break;
+                            }
+                        }
+                    }
+                    if (findinhpflag == 1) break;
+                }
+                if (findinhpflag == 0) {
+                    itcandidateP1->second.Vrts[onevrtF].isknown = 1;
+                    itcandidateP1->second.Vrts[onevrtF].REF = ref_str.substr(gap_s_refpos, itcandidateP1->second.Vrts[onevrtF].length_in_ref);
+                }
+            }
+        }
+        itcandidateP1++;
+    }
+    delete (idx);
+    idx = nullptr;
+}
+
+void create_highvrt_p2vrt(char *BED_PATH, std :: map<uint32_t , PosInfo> candidata_p1, std :: map <uint32_t , int> secondaryReads, std :: vector <vrtReault> &ResultV, std :: map <string, vector<vrtPOS_bam>> &p2vrtpos, std :: map<uint32_t, std :: vector <P2vrt>> &p2vrt) {
+    std ::vector<uint32_t> snv_posline;
+    snv_posline.push_back(0);
+    std ::map<uint32_t, PosInfo>::iterator itcan1 = candidata_p1.begin();
+    while (itcan1 != candidata_p1.end()) {
+        snv_posline.push_back(itcan1->first);
+        itcan1++;
+    }
+    snv_posline.push_back(4294967294);
+    sort(snv_posline.begin(), snv_posline.end());
+
+    std :: vector <range_homo> homo_ran;
+    load_bed(BED_PATH, opt->chrID, homo_ran);
+
+    uint32_t per_pos, next_pos;
+    for (int snvpos_inx = 1; snvpos_inx < snv_posline.size() - 1; snvpos_inx++) { // every pos process
+        uint32_t realrefpos_now = snv_posline[snvpos_inx];
+        std ::map<uint32_t, PosInfo>::iterator itcan2 = candidata_p1.find(realrefpos_now);
+        if (itcan2 != candidata_p1.end()) { // find all vrt in the pos
+            int secondnum = 0;
+            std ::map<uint32_t, int>::iterator itsec = secondaryReads.find(realrefpos_now);
+            if (itsec != secondaryReads.end()) secondnum = itsec->second;
+            if (secondnum > 100) continue;
+            
+            per_pos = snv_posline[snvpos_inx - 1];
+            next_pos = snv_posline[snvpos_inx + 1];
+            int idx = (realrefpos_now - 25) / 50;
+            uint32_t idx_refpos = idx * 50;
+            int vrtNUM = itcan2->second.vrt_num;
+            int supprefnum = itcan2->second.ref_num;
+            int ALLreads_num = itcan2->second.ALLreads.size();
+
+            int if2 = 0;
+            int inhomo = find_homo(homo_ran, realrefpos_now);//1:in 0:out
+            if(inhomo == 0) {//not in home
+                if (ALLreads_num >= 3) {
+                    for (auto onevrt : itcan2->second.Vrts) {
+                        int line0 = onevrt.suppstand0, line16 = onevrt.suppstand16;
+                        int del = string_bias(line0, line16);
+                        if(del == 1) continue;
+
+                        int ifResult = 0;
+                        int VaRnum = onevrt.suppvrt_read + supprefnum;
+                        float rate_ = (float)onevrt.suppvrt_read/ALLreads_num;
+                        if(onevrt.vrttype == 0 && rate_ >= 0.3){
+                            if(onevrt.isknown == 0 || (per_pos <= itcan2->first-10 && next_pos>=itcan2->first+10 && vrtNUM == 1)) ifResult = 1;
+                        } 
+                        if(onevrt.vrttype == 1){
+                            if(onevrt.isknown == 0) ifResult = 1;
+                            if(onevrt.isknown == 1 && rate_ >= 0.4) ifResult = 1;
+                        }
+                        if (ifResult == 1) { // part1 result
+                            vrtReault c1;
+                            // c1.chrID = itcan2->second.chrID;
+                            c1.ref_pos = itcan2->first;
+                            c1.vrtAref_num = VaRnum;
+                            c1.isknown = onevrt.isknown;
+                            c1.vrttype = onevrt.vrttype;
+                            c1.vrt_num = onevrt.suppvrt_read;
+                            c1.all_num = ALLreads_num;
+                            c1.REF = onevrt.REF;
+                            c1.ALT = onevrt.ALT;
+                            ResultV.push_back(c1);
+                        }
+                        else if (onevrt.vrttype == 0 || (onevrt.vrttype == 1 && rate_ >= 0.3)) { // part2 vrt
+                        // else{
+                            P2vrt snv1;
+                            snv1.refpos = itcan2->first;
+                            snv1.REF = onevrt.REF;
+                            snv1.ALT = onevrt.ALT;
+                            p2vrt[idx_refpos].push_back(snv1);
+                            if2 = 1;
+                        }
+                    }
+                } else {
+                    for (auto onevrt : itcan2->second.Vrts) {
+                        if(onevrt.suppvrt_read == 1) continue;
+                        int ifResult = 0;
+                        int VaRnum = onevrt.suppvrt_read + supprefnum;
+                        float rate_ = (float)onevrt.suppvrt_read/ALLreads_num;
+                        if(onevrt.vrttype == 0 && rate_ >= 0.3){
+                            if(onevrt.isknown == 0 || (per_pos <= itcan2->first-10 && next_pos>=itcan2->first+10 && vrtNUM == 1)) ifResult = 1;
+                        } 
+                        if(onevrt.vrttype == 1){
+                            if(onevrt.isknown == 0) ifResult = 1;
+                            if(onevrt.isknown == 1 && rate_ >= 0.4) ifResult = 1;
+                        }
+                        if (ifResult == 1) {
+                            vrtReault c1;
+                            // c1.chrID = itcan2->second.chrID;
+                            c1.ref_pos = itcan2->first;
+                            c1.vrtAref_num = VaRnum;
+                            c1.isknown = onevrt.isknown;
+                            c1.vrttype = onevrt.vrttype;
+                            c1.vrt_num = onevrt.suppvrt_read;
+                            c1.all_num = ALLreads_num;
+                            c1.REF = onevrt.REF;
+                            c1.ALT = onevrt.ALT;
+                            ResultV.push_back(c1);
+                        }
+                        else if (onevrt.vrttype == 0 || (onevrt.vrttype == 1 && rate_ >= 0.3)) { // part2 vrt
+                        // else{
+                            P2vrt snv1;
+                            snv1.refpos = itcan2->first;
+                            snv1.REF = onevrt.REF;
+                            snv1.ALT = onevrt.ALT;
+                            p2vrt[idx_refpos].push_back(snv1);
+                            if2 = 1;
+                        }
+                    }
+                }
+            } else{//in homo
+                if (ALLreads_num >= 3) {
+                    for (auto onevrt : itcan2->second.Vrts) {
+                        int line0 = onevrt.suppstand0, line16 = onevrt.suppstand16;
+                        int del = string_bias(line0, line16);
+                        if(del == 1) continue;
+
+                        int ifResult = 0;
+                        int VaRnum = onevrt.suppvrt_read + supprefnum;
+                        float rate_ = (float)onevrt.suppvrt_read/ALLreads_num;
+                        if(onevrt.vrttype == 0 && rate_ >= 0.3){
+                            if(onevrt.isknown == 0 || (per_pos <= itcan2->first-10 && next_pos>=itcan2->first+10 && vrtNUM == 1)) ifResult = 1;
+                        } 
+                        if(onevrt.vrttype == 1){
+                            if(onevrt.isknown == 0) ifResult = 1;
+                            if(onevrt.isknown == 1 && rate_ >= 0.4) ifResult = 1;
+                        }
+                        if (ifResult == 1) { // part1 result
+                            vrtReault c1;
+                            // c1.chrID = itcan2->second.chrID;
+                            c1.ref_pos = itcan2->first;
+                            c1.vrtAref_num = VaRnum;
+                            c1.isknown = onevrt.isknown;
+                            c1.vrttype = onevrt.vrttype;
+                            c1.vrt_num = onevrt.suppvrt_read;
+                            c1.all_num = ALLreads_num;
+                            c1.REF = onevrt.REF;
+                            c1.ALT = onevrt.ALT;
+                            ResultV.push_back(c1);
+                        } else if (onevrt.vrttype == 0) { // part2 vrt
+                            P2vrt snv1;
+                            snv1.refpos = itcan2->first;
+                            snv1.REF = onevrt.REF;
+                            snv1.ALT = onevrt.ALT;
+                            p2vrt[idx_refpos].push_back(snv1);
+                            if2 = 1;
+                        }
+                    }
+                } else {
+                    for (auto onevrt : itcan2->second.Vrts) {
+                        if(onevrt.suppvrt_read == 1) continue;
+                        int ifResult = 0;
+                        int VaRnum = onevrt.suppvrt_read + supprefnum;
+                        float rate_ = (float)onevrt.suppvrt_read/ALLreads_num;
+                        if(onevrt.vrttype == 0 && rate_ >= 0.3){
+                            if(onevrt.isknown == 0 || (per_pos <= itcan2->first-10 && next_pos>=itcan2->first+10 && vrtNUM == 1)) ifResult = 1;
+                        } 
+                        if(onevrt.vrttype == 1){
+                            if(onevrt.isknown == 0) ifResult = 1;
+                            if(onevrt.isknown == 1 && rate_ >= 0.4) ifResult = 1;
+                        }
+                        if (ifResult == 1) {
+                            vrtReault c1;
+                            // c1.chrID = itcan2->second.chrID;
+                            c1.ref_pos = itcan2->first;
+                            c1.vrtAref_num = VaRnum;
+                            c1.isknown = onevrt.isknown;
+                            c1.vrttype = onevrt.vrttype;
+                            c1.vrt_num = onevrt.suppvrt_read;
+                            c1.all_num = ALLreads_num;
+                            c1.REF = onevrt.REF;
+                            c1.ALT = onevrt.ALT;
+                            ResultV.push_back(c1);
+                        } else if (onevrt.vrttype == 0)  { // part2 vrt
+                            P2vrt snv1;
+                            snv1.refpos = itcan2->first;
+                            snv1.REF = onevrt.REF;
+                            snv1.ALT = onevrt.ALT;
+                            p2vrt[idx_refpos].push_back(snv1);
+                            if2 = 1;
+                        }
+                    }
+                }
+            }
+            if (if2 == 1) { // part2 reads
+                for (auto read : itcan2->second.ALLreads) {
+                    std ::map<string, vector<vrtPOS_bam>>::iterator it = p2vrtpos.find(read.readid);
+                    if (it != p2vrtpos.end()) { // can find readid
+                        vrtPOS_bam tmpsnvpos;
+                        tmpsnvpos.stand = read.stand;
+                        std ::vector<vrtPOS_bam>::iterator itstand = find(it->second.begin(), it->second.end(), tmpsnvpos);
+                        if (itstand != it->second.end()) {
+                            std ::vector<uint32_t>::iterator itsvpos = find(itstand->ref_pos_snv.begin(), itstand->ref_pos_snv.end(), idx_refpos);
+                            if (itsvpos != itstand->ref_pos_snv.end()){}
+                            else itstand->ref_pos_snv.push_back(idx_refpos);
+                        } else {
+                            tmpsnvpos.ref_pos_snv.push_back(idx_refpos);
+                            it->second.push_back(tmpsnvpos);
+                        }
+                    } else { // cannot find readid
+                        vrtPOS_bam tmpsnvpos;
+                        tmpsnvpos.stand = read.stand;
+                        tmpsnvpos.ref_pos_snv.push_back(idx_refpos);
+                        p2vrtpos[read.readid].push_back(tmpsnvpos);
+                    }
+                }
+            }
+        }
+    }
+}
+
+//best EDN
+
+
+//2023.10.21
+
+// void Re_align(std :: map<uint32_t, std :: vector <P2vrt>> p2vrt, std :: vector <ConsensusINFO> consensus_str, std :: map <int,std :: vector <readstr_name>> clupos_str, std :: vector <snvVRT> &ResultSnv, ofstream &consensusF) {
+//     Simple_ref_handler ref;
+//     ref.load_bin_ref(opt->index_path);
+//     MM_idx_loader *idx = (MM_idx_loader *)new (MM_idx_loader);
+//     idx -> load_window_ID_idx(opt->index_path);
+//     idx -> load_all_index(opt->index_path, NULL, true);
+//     for(auto constr : consensus_str){
+//         //load sub reference by consensus length
+//         hap_string_loader_single_thread hl_r1; 
+//         int window_ID = hl_r1.get_windows_ID(give_chrint, constr.ref_pos, idx);
+//         std::string ref_str;
+//         ref.load_ref_from_buff(idx->wb_info[window_ID].chrID, idx->wb_info[window_ID].region_st, idx->wb_info[window_ID].region_length, ref_str);
+//         std :: map<uint32_t, std :: vector <P2vrt>> :: iterator itp2vrt = p2vrt.find(constr.ref_pos);
+//         if (itp2vrt != p2vrt.end()) {
+//             consensusF << "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" << constr.ref_pos << "\t" << constr.all_cov_readnum << endl;
+//             std :: vector <string> subref_v;
+//             int start = constr.ref_pos - idx->wb_info[window_ID].region_st;
+//             for(auto oneconsensus : constr.con_suppr){
+//                 int strlength = 100;
+//                 string subref;
+//                 if (ref_str.length() >= strlength + start){
+//                     subref = ref_str.substr(start,strlength);
+//                 } else{
+//                     uint32_t refpostmp = constr.ref_pos + 25;
+//                     window_ID = hl_r1.get_windows_ID(give_chrint, refpostmp, idx);
+//                     ref.load_ref_from_buff(idx->wb_info[window_ID].chrID, idx->wb_info[window_ID].region_st, idx->wb_info[window_ID].region_length, ref_str);
+//                     start = constr.ref_pos + 1 - idx->wb_info[window_ID].region_st;
+//                     subref = ref_str.substr(start,strlength);
+//                 }
+//                 subref_v.push_back(subref);
+//             }
+
+//             int idxx = constr.ref_pos/50;
+//             // ksw_score(readstr_clu[give_chrint].clupos_str[idxx], constr.con_suppr, subref_v[0]);
+//             // int allnum = edlib_distance(clupos_str[idxx], subref_v[0], constr.con_suppr);
+//             int concluid = 0;
+//             std :: vector <snvVRT> ResultV_add;
+//             for(auto oneconsensus : constr.con_suppr){
+//                 int strlength = subref_v[concluid].length();
+//                 int strlengthcon = oneconsensus.consensus.length();
+//                 std :: string cigar = "";
+//                 int score= ksw_align(subref_v[concluid], oneconsensus.consensus, strlength, strlengthcon, 1, 4, 8, 2, cigar);
+//                 consensusF << "kswscore: " << score << "\tsupportvrt_num: " << oneconsensus.suppsnv_readnum << endl;
+//                 for(auto ksn : itp2vrt->second){
+//                     consensusF << ksn.refpos << "_" << ksn.REF << "_" << ksn.ALT << "\t";
+//                 } consensusF << "\n";
+//                 consensusF << subref_v[concluid] << endl;
+//                 consensusF << oneconsensus.consensus << endl;
+//                 consensusF << "0: " << cigar << endl;
+//                 if(score > 0){
+//                     // analyze_K2snv(subref_v[concluid], oneconsensus.consensus, cigar, constr.ref_pos, allnum, oneconsensus.suppsnv_readnum, give_chrint , itk2snv->second , ResultV_add);
+//                     analyze_K2snv(subref_v[concluid], oneconsensus.consensus, cigar, constr.ref_pos, constr.all_cov_readnum, oneconsensus.suppsnv_readnum, give_chrint , itp2vrt->second , ResultV_add, consensusF);
+//                 }
+//                 concluid = concluid + 1;
+//             }
+//             for(auto ResultV_one : ResultV_add) ResultSnv.push_back(ResultV_one);
+//         }
+//         consensusF << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+//     }
+//     delete(idx);
+//     idx = nullptr;
+// }
+
+// int printSnvvcf(char *SNV_PATH, std :: vector <snvVRT> ResultSnv, std :: map <uint32_t , int> secondaryReads) {
+//     std :: vector <uint32_t> ResultSnv_refpos;
+//     sort(ResultSnv.begin() , ResultSnv.end());
+//     for (auto cc : ResultSnv) ResultSnv_refpos.push_back(cc.ref_pos);
+//     ResultSnv_refpos.push_back(4294967294);
+//     sort(ResultSnv_refpos.begin() , ResultSnv_refpos.end());
+
+//     time_t data = time(0);
+//     char tmp[32] = {""};
+//     strftime(tmp, sizeof(tmp), "%Y%m%d", localtime(&data));
+
+//     ofstream snvfile;
+//     snvfile.open(SNV_PATH);
+//     snvfile << "##fileformat=VCFv4.2" << endl;
+//     snvfile << "##fileData=" << tmp << endl;
+//     snvfile << "##FILTER=<ID=PASS,Description=\"All filters passed\">\n";
+//     snvfile << "##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description=\"Imprecise structural variation\">\n";
+//     snvfile << "##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">\n";
+//     snvfile << "##FORMAT=<ID=GQ,Number=1,Type=Integer,Description=\"Genotype Quality\">\n";
+//     snvfile << "##ALT=<ID=DEL,Description=\"Deletion\">\n";
+//     snvfile << "##ALT=<ID=INS,Description=\"Insertion\">\n";
+
+//     ofstream snvhigh_file;
+//     snvhigh_file.open("./tmp_out/highsnv.vcf");
+//     snvhigh_file << "##fileformat=VCFv4.2" << endl;
+//     snvhigh_file << "##fileData=" << tmp << endl;
+//     snvhigh_file << "##FILTER=<ID=PASS,Description=\"All filters passed\">\n";
+//     snvhigh_file << "##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description=\"Imprecise structural variation\">\n";
+//     snvhigh_file << "##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">\n";
+//     snvhigh_file << "##FORMAT=<ID=GQ,Number=1,Type=Integer,Description=\"Genotype Quality\">\n";
+
+//     std :: map <int , refid> :: iterator itrefinfo = int2chrID.begin();
+//     while (itrefinfo != int2chrID.end()) {
+//         snvfile << "##contig=<ID=" << itrefinfo->second.chrid << ",length=" << itrefinfo->second.length << ">\n";
+
+//         snvhigh_file << "##contig=<ID=" << itrefinfo->second.chrid << ",length=" << itrefinfo->second.length << ">\n";
+//         itrefinfo++;
+//     }
+//     snvfile << "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tSAMPLE" << endl;
+
+//     snvhigh_file << "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tHG002" << endl;
+
+//     // body
+//     int snvpos_next = 1,pass = 0;
+//     for (auto oneSnv : ResultSnv) {
+//         if (oneSnv.ref_pos < opt->readbam_start || oneSnv.ref_pos > opt->readbam_end) continue;
+//         if (pass == 1) {
+//             snvpos_next = snvpos_next + 1;
+//             pass = 0;
+//             continue;
+//         }
+//         int n_alts = oneSnv.vrt_num, n_total = oneSnv.vrtAref_num;
+//         float err = ERR_snp;
+//         std ::vector<float> GL_P;
+//         FormatInfo outinfo;
+//         rescale_read_counts(n_alts, n_total);
+//         GL_P = cal_GL(n_alts, n_total, err);
+//         outinfo = computer_quals(GL_P);
+//         uint32_t nextpos = ResultSnv_refpos[snvpos_next];
+//         if (outinfo.GT == "0/0") { // the pos GT now
+//             snvpos_next = snvpos_next + 1;
+//             continue;
+//         }
+//         if (oneSnv.ref_pos == nextpos) {//the same pos has more than one vrt
+//             FormatInfo outinfo_now;
+//             outinfo_now.GQ = outinfo.GQ;
+//             outinfo_now.GT = outinfo.GT;
+//             outinfo_now.QUAL = outinfo.QUAL;
+//             // std ::string GTnow = outinfo.GT;
+//             int n_alts = ResultSnv[snvpos_next].vrt_num, n_total_next = ResultSnv[snvpos_next].vrtAref_num;
+//             rescale_read_counts(n_alts, n_total_next);
+//             GL_P = cal_GL(n_alts, n_total_next, err);
+//             outinfo = computer_quals(GL_P);
+//             if (outinfo.GT == "0/0") { //outinfo is next
+//                 // if(outinfo_now.GQ > 10){
+//                     snvfile << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                         << ".\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << outinfo_now.QUAL << "\t"
+//                         << "PASS"
+//                         << "\t"
+//                         << "."
+//                         << "\t"
+//                         << "GT:GQ"
+//                         << "\t" << outinfo_now.GT << ":" << outinfo_now.GQ << endl;
+//                 // }
+//                 //high snv file
+//                 if((outinfo_now.GT == "0/1" || outinfo_now.GT == "1/0") && outinfo_now.GQ > 15){
+//                     snvhigh_file << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                         << ".\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << outinfo.QUAL << "\t"
+//                         << "PASS"
+//                         << "\t"
+//                         << "."
+//                         << "\t"
+//                         << "GT:GQ"
+//                         << "\t" << outinfo.GT << ":" << outinfo.GQ << endl;
+//                 }
+//             } else { // 2/1
+//                 if(outinfo_now.GQ > 10 && outinfo.GQ > 10){
+//                     snvfile << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                         << ".\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << outinfo_now.QUAL << "\t"
+//                         << "PASS"
+//                         << "\t"
+//                         << "."
+//                         << "\t"
+//                         << "GT:GQ"
+//                         << "\t"
+//                         << "0/1"
+//                         << ":" << outinfo_now.GQ << endl;
+//                     snvfile << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                         << ".\t" << ResultSnv[snvpos_next].REF << "\t" << ResultSnv[snvpos_next].ALT << "\t" << outinfo.QUAL << "\t"
+//                         << "PASS"
+//                         << "\t"
+//                         << "."
+//                         << "\t"
+//                         << "GT:GQ"
+//                         << "\t"
+//                         << "1/0"
+//                         << ":" << outinfo.GQ << endl;
+//                 } if(outinfo_now.GQ > 10 && outinfo.GQ <= 10){
+//                     snvfile << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                         << ".\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << outinfo_now.QUAL << "\t"
+//                         << "PASS"
+//                         << "\t"
+//                         << "."
+//                         << "\t"
+//                         << "GT:GQ"
+//                         << "\t"
+//                         << outinfo_now.GT
+//                         << ":" << outinfo_now.GQ << endl;
+//                 } if(outinfo_now.GQ <= 10 && outinfo.GQ > 10){
+//                     snvfile << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                         << ".\t" << ResultSnv[snvpos_next].REF << "\t" << ResultSnv[snvpos_next].ALT << "\t" << outinfo.QUAL << "\t"
+//                         << "PASS"
+//                         << "\t"
+//                         << "."
+//                         << "\t"
+//                         << "GT:GQ"
+//                         << "\t"
+//                         << outinfo.GT
+//                         << ":" << outinfo.GQ << endl;
+//                 }
+//                 //high snv file
+//                 if(outinfo_now.GQ > 15 && outinfo.GQ > 15){
+//                     snvhigh_file << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                         << ".\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << outinfo_now.QUAL << "\t"
+//                         << "PASS"
+//                         << "\t"
+//                         << "."
+//                         << "\t"
+//                         << "GT:GQ"
+//                         << "\t"
+//                         << "0/1"
+//                         << ":" << outinfo_now.GQ << endl;
+//                     snvhigh_file << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                         << ".\t" << ResultSnv[snvpos_next].REF << "\t" << ResultSnv[snvpos_next].ALT << "\t" << outinfo.QUAL << "\t"
+//                         << "PASS"
+//                         << "\t"
+//                         << "."
+//                         << "\t"
+//                         << "GT:GQ"
+//                         << "\t"
+//                         << "1/0"
+//                         << ":" << outinfo.GQ << endl;
+//                 } if(outinfo_now.GQ > 15 && outinfo.GQ <= 15){
+//                     snvhigh_file << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                         << ".\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << outinfo_now.QUAL << "\t"
+//                         << "PASS"
+//                         << "\t"
+//                         << "."
+//                         << "\t"
+//                         << "GT:GQ"
+//                         << "\t"
+//                         << outinfo_now.GT
+//                         << ":" << outinfo_now.GQ << endl;
+//                 } if(outinfo_now.GQ <= 15 && outinfo.GQ > 15){
+//                     snvhigh_file << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                         << ".\t" << ResultSnv[snvpos_next].REF << "\t" << ResultSnv[snvpos_next].ALT << "\t" << outinfo.QUAL << "\t"
+//                         << "PASS"
+//                         << "\t"
+//                         << "."
+//                         << "\t"
+//                         << "GT:GQ"
+//                         << "\t"
+//                         << outinfo.GT
+//                         << ":" << outinfo.GQ << endl;
+//                 }
+//             }
+//             pass = 1;
+//             snvpos_next = snvpos_next + 1;
+//         } else {//0/1 or 1/1
+//             int secondnum = 0;
+//             std ::map<uint32_t, int>::iterator itsec = secondaryReads.find(oneSnv.ref_pos);
+//             if (itsec != secondaryReads.end()) secondnum = itsec->second;
+//             int fAa = oneSnv.all_num + secondnum;
+//             // if (outinfo.GQ > 10) {
+//                 if ((float)oneSnv.all_num / fAa < 0.18 && outinfo.GT == "1/1") {
+//                     snvfile << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                             << ".\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << outinfo.QUAL << "\t"
+//                             << "PASS"
+//                             << "\t"
+//                             << "."
+//                             << "\t"
+//                             << "GT:GQ"
+//                             << "\t"
+//                             << "0/1"
+//                             << ":" << outinfo.GQ << endl;
+//                     if(outinfo.GQ > 15){
+//                         snvhigh_file << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                             << ".\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << outinfo.QUAL << "\t"
+//                             << "PASS"
+//                             << "\t"
+//                             << "."
+//                             << "\t"
+//                             << "GT:GQ"
+//                             << "\t"
+//                             << "0/1"
+//                             << ":" << outinfo.GQ << endl;
+//                     }
+//                 } else {
+//                     snvfile << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                             << ".\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << outinfo.QUAL << "\t"
+//                             << "PASS"
+//                             << "\t"
+//                             << "."
+//                             << "\t"
+//                             << "GT:GQ"
+//                             << "\t" << outinfo.GT << ":" << outinfo.GQ << endl;
+//                     if((outinfo.GT == "0/1" || outinfo.GT == "1/0") && outinfo.GQ > 15){
+//                         snvhigh_file << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+//                             << ".\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << outinfo.QUAL << "\t"
+//                             << "PASS"
+//                             << "\t"
+//                             << "."
+//                             << "\t"
+//                             << "GT:GQ"
+//                             << "\t" << outinfo.GT << ":" << outinfo.GQ << endl;
+//                     }
+//                 }
+//             // }
+//             snvpos_next = snvpos_next + 1;
+//         }
+//     }
+//     ResultSnv_refpos.clear();
+//     snvfile.close();
+//     snvhigh_file.close();
+//     return 0;
+
+// }
