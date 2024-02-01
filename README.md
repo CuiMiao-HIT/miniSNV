@@ -20,7 +20,7 @@ $ git clone https://github.com/CuiMiao-HIT/miniSNV.git && cd miniSNV/Release && 
 	--workDir WORKDIR
 
 ### Options
-**Required parameters:**
+**Required parameters:**  
   	-b, --fin_bam           BAM file input. The input file must be samtools indexed.
   	-r, --fin_ref           FASTA reference file input. The input file must be samtools indexed.
   	-i, --fin_index         The folder path containing a miniSNV index(five files in the folder).
@@ -28,7 +28,7 @@ $ git clone https://github.com/CuiMiao-HIT/miniSNV.git && cd miniSNV/Release && 
  	 -db, --dup_bed          DUP HOMO Bed format input.
  	 -o, --workDir           Work-directory for distributed job.
 
-**Other parameters:**
+**Other parameters:**  
 	--threads(INT)          Number of threads to use.(default : 16)
 	--chrName               list of chrName (contig names) to be processed, separeted by comma without any blank space.
 	--sample                Sample name in vcf file.(default : SAMPLE)
