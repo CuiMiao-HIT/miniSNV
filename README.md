@@ -33,8 +33,8 @@ python chr_chunk_task.py \
 --fin_ref FIN_REF \
 --fin_bam FIN_BAM \
 --fin_index FIN_INDEX \
---homo_bed FIN_BED \
---dup_bed DUP_BED \
+--homo_bed FIN_BED(GRCh38_AllHomopolymers_gt6bp_imperfectgt10bp_slop5.bed) \
+--dup_bed DUP_BED(GRCh38_segdups.bed) \
 --workDir WORKDIR
 ```
 
