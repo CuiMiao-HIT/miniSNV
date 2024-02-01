@@ -10,9 +10,12 @@ miniSNV is a lightweight SNV calling algorithm that simultaneously achieves high
 **2.install whatshap :**
 ```
 conda install bioconda::whatshap
+
 or
+
 conda install bioconda/label/cf201901::whatshap
 ```
+<br>
 **3.download miniSNV** 
 ```
 git clone https://github.com/CuiMiao-HIT/miniSNV.git
@@ -46,6 +49,7 @@ python chr_chunk_task.py \
 	-db, --dup_bed          DUP HOMO Bed format input.  
 	-o, --workDir           Work-directory for distributed job.  
 ```
+<br>
 **Other parameters:**  
 ```
 	--threads(INT)          Number of threads to use.(default : 16)  
