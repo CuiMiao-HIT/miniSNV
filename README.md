@@ -33,7 +33,7 @@ python chr_chunk_task.py \
 --fin_ref FIN_REF \
 --fin_bam FIN_BAM \
 --fin_index FIN_INDEX \
---fin_bed FIN_BED \
+--homo_bed FIN_BED \
 --dup_bed DUP_BED \
 --workDir WORKDIR
 ```
