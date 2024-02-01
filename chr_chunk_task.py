@@ -46,7 +46,7 @@ def run(args):
     fin_bam = CheckFileExist(args.fin_bam)
     fin_ref = CheckFileExist(args.fin_ref)
     fin_ref_fai = CheckFileExist(fin_ref, sfx=".fai")
-    fin_bed = CheckFileExist(args.fin_bed)
+    homo_bed = CheckFileExist(args.homo_bed)
     dup_bed = CheckFileExist(args.dup_bed)
     fin_index = CheckDirExist(args.fin_index)
     
@@ -69,14 +69,14 @@ def run(args):
     callVar_command_optionsS1 = [
         ExecuteCommand(callBin, "callerStep1"),
         CommandOption('fin_bam', fin_bam),
-        CommandOption('fin_bed', fin_bed),
+        CommandOption('fin_bed', homo_bed),
         CommandOption('dup_bed', dup_bed),
         CommandOption('fin_index', fin_index),
     ]
     callVar_command_optionsS3 = [
         ExecuteCommand(callBin, "callerStep3"),
         CommandOption('fin_bam', fin_bam),
-        CommandOption('fin_bed', fin_bed),
+        CommandOption('fin_bed', homo_bed),
         CommandOption('dup_bed', dup_bed),
         CommandOption('fin_index', fin_index),
     ]
@@ -287,7 +287,7 @@ def main():
             required=True,
             help="The path of RdBG index. [DIR_PATH]")
     
-    parser.add_argument("--fin_bed", 
+    parser.add_argument("--homo_bed", 
             type=str, 
             required=True,
             help="HOMO Bed format input. [BED]")
