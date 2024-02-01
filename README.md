@@ -5,8 +5,10 @@ miniSNV is a lightweight SNV calling algorithm that simultaneously achieves high
 
 ---
 ## Installation
-$ download index folder at [here](https://drive.google.com/drive/folders/17NFTbnPuZhJ4SWSjrRqyUZ_9pn38vgc9?usp=sharing)  
-$ install whatshap : **conda install bioconda::whatshap** or **conda install bioconda/label/cf201901::whatshap**  
+1.download index folder at [here](https://drive.google.com/drive/folders/17NFTbnPuZhJ4SWSjrRqyUZ_9pn38vgc9?usp=sharing)  
+<br>
+2.install whatshap : **conda install bioconda::whatshap**&nbsp;or&nbsp;**conda install bioconda/label/cf201901::whatshap**  
+<br>
 $ git clone https://github.com/CuiMiao-HIT/miniSNV.git && cd miniSNV/Release && make -j 12  && cd ..
 
 ---	
