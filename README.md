@@ -21,6 +21,11 @@ $ git clone https://github.com/CuiMiao-HIT/miniSNV.git && cd miniSNV/Release && 
 
 ### Options
 **Required parameters:**  
+	> For PacBio CLR data:
+		--max_cluster_bias_INS		100
+		--diff_ratio_merging_INS	0.3
+		--max_cluster_bias_DEL	200
+		--diff_ratio_merging_DEL	0.5
 	-b, --fin_bam           BAM file input. The input file must be samtools indexed.  
 	-r, --fin_ref           FASTA reference file input. The input file must be samtools indexed.  
 	-i, --fin_index         The folder path containing a miniSNV index(five files in the folder).  
@@ -33,7 +38,6 @@ $ git clone https://github.com/CuiMiao-HIT/miniSNV.git && cd miniSNV/Release && 
 	--chrName               list of chrName (contig names) to be processed, separeted by comma without any blank space.  
 	--sample                Sample name in vcf file.(default : SAMPLE)  
 	--chunkWidth(INT)       Reference length to detect candidate in one loop.(default : 10000000)  
-	--read_Ratio(FAULT)     .(default : 0.98)
 
 ## Contact
 Please post on [Github Issue](https://github.com/CuiMiao-HIT/miniSNV/issues) or contact cuimiao@stu.hit.edu.cn.
