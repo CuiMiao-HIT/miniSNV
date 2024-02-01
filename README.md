@@ -16,8 +16,11 @@ conda install bioconda/label/cf201901::whatshap
 **3.download miniSNV** 
 ```
 git clone https://github.com/CuiMiao-HIT/miniSNV.git
+
 cd miniSNV/Release
+
 make -j 12
+
 cd ..
 ```
 
