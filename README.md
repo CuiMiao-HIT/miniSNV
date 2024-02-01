@@ -11,13 +11,13 @@ $ git clone https://github.com/CuiMiao-HIT/miniSNV.git && cd miniSNV/Release && 
 
 ---	
 ## Usage
-python chr_chunk_task.py \
---fin_ref FIN_REF \
---fin_bam FIN_BAM \
---fin_index FIN_INDEX \
---fin_bed FIN_BED \
---dup_bed DUP_BED \
---workDir WORKDIR
+	python chr_chunk_task.py \
+	--fin_ref FIN_REF \
+	--fin_bam FIN_BAM \
+	--fin_index FIN_INDEX \
+	--fin_bed FIN_BED \
+	--dup_bed DUP_BED \
+	--workDir WORKDIR
 
 ### Options
 **Required parameters:**
