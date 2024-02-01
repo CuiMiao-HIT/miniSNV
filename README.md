@@ -21,12 +21,12 @@ $ git clone https://github.com/CuiMiao-HIT/miniSNV.git && cd miniSNV/Release && 
 
 ### Options
 **Required parameters:**  
-  	-b, --fin_bam           BAM file input. The input file must be samtools indexed.
-  	-r, --fin_ref           FASTA reference file input. The input file must be samtools indexed.
-  	-i, --fin_index         The folder path containing a miniSNV index(five files in the folder).
-  	-hb, --homo_bed         HOMO Bed format input.
- 	 -db, --dup_bed          DUP HOMO Bed format input.
- 	 -o, --workDir           Work-directory for distributed job.
+	-b, --fin_bam           BAM file input. The input file must be samtools indexed.
+	-r, --fin_ref           FASTA reference file input. The input file must be samtools indexed.
+	-i, --fin_index         The folder path containing a miniSNV index(five files in the folder).
+	-hb, --homo_bed         HOMO Bed format input.
+	-db, --dup_bed          DUP HOMO Bed format input.
+	-o, --workDir           Work-directory for distributed job.
 
 **Other parameters:**  
 	--threads(INT)          Number of threads to use.(default : 16)
