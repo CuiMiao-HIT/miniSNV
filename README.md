@@ -6,6 +6,7 @@ miniSNV is a lightweight SNV calling algorithm that simultaneously achieves high
 ---
 ## Installation
 **1.download index folder at** [here](https://drive.google.com/drive/folders/17NFTbnPuZhJ4SWSjrRqyUZ_9pn38vgc9?usp=sharing)  
+  
 **2.install whatshap :**
 ```
 conda install bioconda::whatshap
@@ -47,7 +48,6 @@ python chr_chunk_task.py \
 	-db, --dup_bed          DUP HOMO Bed format input.  
 	-o, --workDir           Work-directory for distributed job.  
 ```
-<br>
 **Other parameters:**  
 ```
 	--threads(INT)          Number of threads to use.(default : 16)  
