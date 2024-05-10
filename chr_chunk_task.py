@@ -18,7 +18,6 @@ from utils import setup_logging ,PrintVCFHeader
 from command_options import *
 from check import *
 
-#majorContigs = {"chr"+str(a) for a in list(range(0,23))}.union({str(a) for a in list(range(0,23))})
 majorContigs = {"chr"+str(a) for a in list(range(1,23))}.union({str(a) for a in list(range(1,23))})
 
 VERSION = 'V1.0.0'
@@ -46,12 +45,15 @@ def run(args):
     fin_bam = CheckFileExist(args.fin_bam)
     fin_ref = CheckFileExist(args.fin_ref)
     fin_ref_fai = CheckFileExist(fin_ref, sfx=".fai")
-    homo_bed = CheckFileExist(args.homo_bed)
-    dup_bed = CheckFileExist(args.dup_bed)
-    fin_index = CheckDirExist(args.fin_index)
+    if args.human:
+        homo_bed = CheckFileExist(args.homo_bed)
+        dup_bed = CheckFileExist(args.dup_bed)
+    if args.human and args.useindex:
+        fin_index = CheckDirExist(args.fin_index)
     
     region_chunk_size = args.chunkWidth
     read_Ratio_ = args.read_Ratio
+    baseQ_=args.baseQ
     thread_ = args.thread
 
 
@@ -64,28 +66,42 @@ def run(args):
 
     header_fn = output_prefix + "TMPH_header.vcf"
     f_header = open(header_fn, 'w')
-    PrintVCFHeader(f_header, fin_ref, args.sample)
+    PrintVCFHeader(f_header, fin_ref, args.sample, args.human)
 
-    callVar_command_optionsS1 = [
-        ExecuteCommand(callBin, "callerStep1"),
-        CommandOption('fin_bam', fin_bam),
-        CommandOption('fin_bed', homo_bed),
-        CommandOption('dup_bed', dup_bed),
-        CommandOption('fin_index', fin_index),
-    ]
+    if args.human and args.useindex:
+        callVar_command_optionsS1 = [
+            ExecuteCommand(callBin, "callerStep1"),
+            CommandOption('fin_ref', fin_ref),
+            CommandOption('fin_bam', fin_bam),
+            CommandOption('fin_bed', homo_bed),
+            CommandOption('dup_bed', dup_bed),
+            CommandOption('fin_index', fin_index),
+        ]
+    elif args.human:
+        callVar_command_optionsS1 = [
+            ExecuteCommand(callBin, "callerStep1"),
+            CommandOption('fin_ref', fin_ref),
+            CommandOption('fin_bam', fin_bam),
+            CommandOption('fin_bed', homo_bed),
+            CommandOption('dup_bed', dup_bed),
+        ]
+    else:
+        callVar_command_optionsS1 = [
+            ExecuteCommand(callBin, "callerStep1"),
+            CommandOption('fin_ref', fin_ref),
+            CommandOption('fin_bam', fin_bam),
+        ]
+
     callVar_command_optionsS3 = [
         ExecuteCommand(callBin, "callerStep3"),
+        CommandOption('fin_ref', fin_ref),
         CommandOption('fin_bam', fin_bam),
-        CommandOption('fin_bed', homo_bed),
-        CommandOption('dup_bed', dup_bed),
-        CommandOption('fin_index', fin_index),
     ]
     
     chrName = []
     if args.chrName is not None:
         chrName = [c.strip() for c in args.chrName.strip().split(',')]
     
-    # 定义多个Bash脚本或者命令
     S1scripts = []
     S23scripts = []
     with open(fin_ref_fai, 'r') as fai_fp:
@@ -94,9 +110,9 @@ def run(args):
             contig_name = columns[0]
             if args.chrName is not None and contig_name not in chrName: 
                 continue 
-
-            if str(contig_name) not in majorContigs:
-                continue
+            if args.human:
+                if str(contig_name) not in majorContigs:
+                    continue
 
             tmp_dir = "_tmp_" + contig_name + "/"#_tmp_chr22/
             chr_outdir = output_prefix + tmp_dir
@@ -125,6 +141,7 @@ def run(args):
                 S1highvcf_fn = chr_outdir+"tmphighvcf"+chunk_name
                 additional_command_optionsS1 = [
                     CommandOption('chr', contig_name),
+                    CommandOption('length', contig_length),
                     CommandOption('start', region_start),
                     CommandOption('end', region_end),
                     CommandOption('tmp_outdir', chr_outdir),
@@ -133,10 +150,12 @@ def run(args):
                     CommandOption('s1vcf', S1s1vcf_fn),
                     CommandOption('highvcf', S1highvcf_fn),
                     CommandOption('read_Ratio', read_Ratio_),
+                    CommandOption('baseQ', baseQ_)
                 ]
                 if contig_name == "chr6" :
                     additional_command_optionsS1 = [
                         CommandOption('chr', contig_name),
+                        CommandOption('length', contig_length),
                         CommandOption('start', region_start),
                         CommandOption('end', region_end),
                         CommandOption('tmp_outdir', chr_outdir),
@@ -145,6 +164,7 @@ def run(args):
                         CommandOption('s1vcf', S1s1vcf_fn),
                         CommandOption('highvcf', S1highvcf_fn),
                         CommandOption('read_Ratio', 0),
+                        CommandOption('baseQ', baseQ_)
                     ]
                 with open(S1sh, 'w') as S1f:
                     print("#!/bin/bash", file=S1f)
@@ -166,6 +186,9 @@ def run(args):
             output_fn = "%s.vcf" % (output_prefix+"TMPV_"+contig_name)
             additional_command_options3 = [
                 CommandOption('chr', contig_name),
+                CommandOption('length', contig_length),
+                CommandOption('start', 0),
+                CommandOption('end', contig_length),
                 CommandOption('tmp_outdir', chr_outdir),
                 CommandOption('p2vrt', S3p2vrt_fn),
                 CommandOption('p2vrtpos', S3p2vrtpos_fn),
@@ -198,7 +221,7 @@ def run(args):
                 print("\n#    ---- STEP3 ----\n" , file=S23f)
                 print(command_string_from(callVar_command_optionsS3) + " " + command_string_from(additional_command_options3), file=S23f)
                 # print("rm -r "+chr_outdir, file=S23f)
-    
+
 
 #run_part
     # Step 1 run and wait finished
@@ -260,7 +283,6 @@ def run(args):
 
 
 
-
 def main():
     parser = argparse.ArgumentParser(prog="python chr_chunk_task.py",
             description=maindp.USAGE,
@@ -281,28 +303,28 @@ def main():
             type=str, 
             required=True,
             help="Sorted .bam file fromMinimap2. [BAM]")
-    
-    parser.add_argument("--fin_index", 
-            type=str, 
-            required=True,
-            help="The path of RdBG index. [DIR_PATH]")
-    
-    parser.add_argument("--homo_bed", 
-            type=str, 
-            required=True,
-            help="HOMO Bed format input. [BED]")
-    
-    parser.add_argument("--dup_bed", 
-            type=str, 
-            required=True,
-            help="DUP HOMO Bed format input. [BED]")
 
     parser.add_argument("--workDir",
             type=str,
             required=True,
             help="Work-directory for distributed job")
     
+
     # ************** Other Parameters******************
+    parser.add_argument("--fin_index", 
+            type=str, 
+            default=None,
+            help="The path of RdBG index. [DIR_PATH]")
+    
+    parser.add_argument("--homo_bed", 
+            type=str, 
+            default=None,
+            help="HOMO Bed format input. [BED]")
+    
+    parser.add_argument("--dup_bed", 
+            type=str, 
+            default=None,
+            help="DUP HOMO Bed format input. [BED]")
     
     parser.add_argument("--chrName", 
             type=str, 
@@ -323,11 +345,23 @@ def main():
             type=float, 
             default=0.98,
             help="read_Ratio. [default : %(default)d]")
+    parser.add_argument("--baseQ", 
+            type=int, 
+            default=13,
+            help="baseQ. [default : %(default)d]")
     
     parser.add_argument("--thread", 
             type=int, 
             default=16,
             help="Number of threads to use. [default : %(default)d]")
+    
+    parser.add_argument("--human", 
+            help="add it if human bam.",
+            action="store_true")
+    
+    parser.add_argument("--useindex", 
+            help="add it if ues index.",
+            action="store_true")
 
     args = parser.parse_args()
     if len(sys.argv[1:]) == 0:

@@ -8,9 +8,6 @@
 #include "callerstep1A3.hpp"
 
 opt_t *opt;
-std :: map < std::string , int > chrID2int;
-std :: map <int , refid> int2chrID;
-int give_chrint = -1;
 
 // AaCcGgTtNn ==> 0,1,2,3,4
 unsigned char nt4_table[256] = {
@@ -59,66 +56,24 @@ int run_callerStep1(int argc, char *argv[]){
     opt = &opt_ent; //global opt
     opt_init(opt);
     if (opt_parse(argc, argv, opt) != 0)  return 2;
-    // if(strcmp(opt->index_path,"NULL")==0){
-    //     fprintf(stderr, "PLEASE GIVE THE INDEX PATH!    -i <index_route>\n");
-    //     return 2;
-    // } if(strcmp(opt->bam_path,"NULL")==0){
-    //     fprintf(stderr, "PLEASE GIVE THE BAM PATH!  -b <bam_path>\n");
-    //     return 2;
-    // } if(strcmp(opt->bed_path,"NULL")==0){
-    //     fprintf(stderr, "PLEASE GIVE THE BED PATH!  -d <bed_path>\n");
-    //     return 2;
-    // }if(strcmp(opt->tmp_outdir,"NULL")==0){
-    //     fprintf(stderr, "PLEASE GIVE THE TMP_DIR PATH!  -d <tmp_dir_path>\n");
-    //     return 2;
-    // }
-
-    /*save all chrid name and chrid number and chr length*/
-    Simple_ref_handler refID;
-    refID.load_bin_ref(opt->index_path);
-    int ref_N = refID.get_chr_N();
-    for (int refi = 0; refi < ref_N; refi++) {
-        std :: string chr_name = refID.get_chr_name(refi);
-        uint32_t chr_length = refID.get_chr_length(refi);
-        chrID2int[chr_name] = refi;
-        refid refinfo;
-        refinfo.chrid = chr_name; refinfo.length = chr_length;
-        int2chrID[refi] = refinfo;
-    }
-    std :: map < std::string , int > :: iterator itfindchrid = chrID2int.find(opt->chrID);
-    if(itfindchrid != chrID2int.end()) give_chrint = itfindchrid->second; 
-    if (give_chrint == -1) {
-        fprintf(stderr, "CANNOT FIND %s IN BAM FILE!\n",opt->chrID);
-        return 2;
-    }
-    if(opt->ifend == 0) opt->readbam_end = int2chrID[give_chrint].length;
 
     // result
     std :: vector <snvVRT> ResultSnv;
 
-    // std :: clock_t c_start1 = std :: clock();
     std :: map<uint32_t , PosInfo> candidata_p1;//real_refpos , posINFO : num&&vrt
-    create_candidate_code(opt->dup_bed_path, opt->bam_path, opt->index_path, give_chrint, opt->readbam_start, opt->readbam_end, candidata_p1);
-    // std::clock_t c_end1 = std::clock();
-    // double time_elapsed_ms1 = 1000.0 * (c_end1-c_start1) / CLOCKS_PER_SEC;
-    // fprintf(stderr, "\ncreat_candidate_code CPU : %.5f sec\n", time_elapsed_ms1 / 1000.0);
-    
+    create_candidate_code(opt->readbam_start, opt->readbam_end, candidata_p1);
     if (candidata_p1.empty()){
         fprintf(stderr, "[%s_%d] candidate file is empty\n\n", opt->chrID, opt->readbam_start);
         return 2;
     }
 
-    // std :: clock_t c_start2 = std :: clock();
     std :: map<uint32_t, std :: vector <P2vrt>> p2vrt;//idx_refpos , vrt
     std :: map <string, std :: vector<vrtPOS_bam>> p2vrtpos;//readID , idx_refpos
-    create_highvrt_p2vrt(opt->bed_path, candidata_p1, ResultSnv, p2vrtpos, p2vrt);
+    create_highvrt_p2vrt(candidata_p1, ResultSnv, p2vrtpos, p2vrt);
     candidata_p1.clear();
-    // std::clock_t c_end2 = std::clock();
-    // double time_elapsed_ms2 = 1000.0 * (c_end2-c_start2) / CLOCKS_PER_SEC;
-    // fprintf(stderr, "\ncreat_highvrt_p2vrt CPU : %.5f sec\n", time_elapsed_ms2 / 1000.0);
     
     if (p2vrt.empty()){
-        int Pvcf = printS1vcf(opt->STEP1vcfInfo_path, opt->highvcf_path, ResultSnv);
+        int Pvcf = printS1vcf(ResultSnv);
         ResultSnv.clear();
         fprintf(stderr, "[%s_%d] low varient file is empty\n\n", opt->chrID, opt->readbam_start);
         return 2;
@@ -150,7 +105,7 @@ int run_callerStep1(int argc, char *argv[]){
     }
     p2vrtpos_info.close();
 
-    int Pvcf = printS1vcf(opt->STEP1vcfInfo_path, opt->highvcf_path, ResultSnv);
+    int Pvcf = printS1vcf(ResultSnv);
     ResultSnv.clear();
 
     fprintf(stderr, "Classify CPU STEP1 of [%s_%d] : %.3f sec\n", opt->chrID, opt->readbam_start, cputime_hp() - cpu_time_all);
@@ -168,39 +123,6 @@ int run_callerStep3(int argc, char *argv[]){
     opt = &opt_ent; //global opt
     opt_init(opt);
     if (opt_parse(argc, argv, opt) != 0)  return 2;
-    // if(strcmp(opt->index_path,"NULL")==0){
-    //     fprintf(stderr, "PLEASE GIVE THE INDEX PATH!    -i <index_route>\n");
-    //     return 2;
-    // } if(strcmp(opt->bam_path,"NULL")==0){
-    //     fprintf(stderr, "PLEASE GIVE THE BAM PATH!  -b <bam_path>\n");
-    //     return 2;
-    // } if(strcmp(opt->bed_path,"NULL")==0){
-    //     fprintf(stderr, "PLEASE GIVE THE BED PATH!  -d <bed_path>\n");
-    //     return 2;
-    // } if(strcmp(opt->tmp_outdir,"NULL")==0){
-    //     fprintf(stderr, "PLEASE GIVE THE TMP_DIR PATH!  -d <tmp_dir_path>\n");
-    //     return 2;
-    // }
-
-    /*save all chrid name and chrid number and chr length*/
-    Simple_ref_handler refID;
-    refID.load_bin_ref(opt->index_path);
-    int ref_N = refID.get_chr_N();
-    for (int refi = 0; refi < ref_N; refi++) {
-        std :: string chr_name = refID.get_chr_name(refi);
-        uint32_t chr_length = refID.get_chr_length(refi);
-        chrID2int[chr_name] = refi;
-        refid refinfo;
-        refinfo.chrid = chr_name; refinfo.length = chr_length;
-        int2chrID[refi] = refinfo;
-    }
-    std :: map < std::string , int > :: iterator itfindchrid = chrID2int.find(opt->chrID);
-    if(itfindchrid != chrID2int.end()) give_chrint = itfindchrid->second; 
-    if (give_chrint == -1) {
-        fprintf(stderr, "CANNOT FIND %s IN BAM FILE!\n",opt->chrID);
-        return 2;
-    }
-    if(opt->ifend == 0) opt->readbam_end = int2chrID[give_chrint].length;
 
     std :: map<string,int> read_phased;//0:none 1/2:hp1/hp2
     std :: map<uint32_t, std :: vector <P2vrt>> p2vrt;//idx_refpos , vrt
@@ -290,7 +212,7 @@ int run_callerStep3(int argc, char *argv[]){
     consensus code     
     */
     std :: map <int,std :: vector <readstr_name>> clupos_str; // <start_idx,strings>
-    load_read_part2_bam(opt->bam_path, p2vrtpos, clupos_str, give_chrint, opt->readbam_start, opt->readbam_end);
+    load_read_part2_bam(p2vrtpos, clupos_str, opt->readbam_start, opt->readbam_end);
     p2vrtpos.clear();
 
     std :: vector <ConsensusINFO> consensus_str;
@@ -301,7 +223,7 @@ int run_callerStep3(int argc, char *argv[]){
     /*     
     write all vcf file code     
     */
-    int Pvcf = printALLsnvvcf(opt->snvvcf_path, opt->STEP1vcfInfo_path, ResultLowsnv);
+    int Pvcf = printALLsnvvcf(ResultLowsnv);
     fprintf(stderr, "\nClassify CPU STEP3 of [%s] : %.3f sec\n\n", opt->chrID, cputime_hp() - cpu_time_all);
     return 0;
 }
@@ -310,7 +232,7 @@ int run_callerStep3(int argc, char *argv[]){
 --------------------------------------Dividing line----------------------------------------
 */
 
-void addreadposin_code(Simple_ref_handler & ref, std :: vector<string> &cigar_sp, int chrID, std :: string & readname, int stand, uint32_t start_readalnref_pos, std :: string & readseq, std::string & basequal, std :: map<uint32_t , PosInfo> &pos_infos){
+void addreadposin_code(std::string & chr_reference, std :: vector<string> &cigar_sp, std :: string & readname, int stand, uint32_t start_readalnref_pos, std :: string & readseq, std::string & basequal, std :: map<uint32_t , PosInfo> &pos_infos){
     READID addread;
     addread.readid = readname;
     addread.stand = stand;
@@ -326,8 +248,7 @@ void addreadposin_code(Simple_ref_handler & ref, std :: vector<string> &cigar_sp
         if (temp[temp_size-1] == 'S'){
             current_readpos = current_readpos + change_size;
         } else if (temp[temp_size - 1] == 'M'){
-            std :: string refpart;
-            ref.load_ref_from_buff(chrID, current_refpos, change_size, refpart);
+            std :: string refpart = splitFasta(chr_reference, opt->length, opt->chrID, current_refpos, change_size);
             std :: string readpart = readseq.substr(current_readpos, change_size);
 
             char Aref,Aread;
@@ -335,11 +256,9 @@ void addreadposin_code(Simple_ref_handler & ref, std :: vector<string> &cigar_sp
                 char base1[1];
                 basequal.copy(base1,1,current_readpos);
                 basequal_int = (int)base1[0] - 33 ;
-                if(basequal_int >= 13){
-                    Aref = refpart[i];
+                if(basequal_int >= opt->baseQ){
+                    Aref = std::toupper(refpart[i]);
                     Aread = std::toupper(readpart[i]);
-                    // uint32_t xpos = current_readpos+i;
-                    // Aread = std::toupper(readseq[xpos]);
                     if(Aref == Aread){
                         //=
                         std :: map<uint32_t , PosInfo> :: iterator itArp = pos_infos.find(current_refpos);
@@ -356,6 +275,7 @@ void addreadposin_code(Simple_ref_handler & ref, std :: vector<string> &cigar_sp
                         //X
                         VRT_info addsnp;
                         addsnp.suppvrt_read = 1;
+                        addsnp.REF = Aref;
                         addsnp.ALT = Aread;
                         addsnp.length_in_ref = 1;
                         addsnp.length_in_read = 1;
@@ -392,7 +312,7 @@ void addreadposin_code(Simple_ref_handler & ref, std :: vector<string> &cigar_sp
                 char base1[1];
                 basequal.copy(base1,1,current_readpos);
                 basequal_int = (int)base1[0] - 33 ;
-                if(basequal_int >= 13){
+                if(basequal_int >= opt->baseQ){
                     std :: map<uint32_t , PosInfo> :: iterator itArp = pos_infos.find(current_refpos);
                     if(itArp != pos_infos.end()){
                         itArp->second.ref_num = itArp->second.ref_num + 1;
@@ -414,12 +334,12 @@ void addreadposin_code(Simple_ref_handler & ref, std :: vector<string> &cigar_sp
                 char base1[1];
                 basequal.copy(base1,1,current_readpos);
                 basequal_int = (int)base1[0] - 33 ;
-                if(basequal_int >= 13){
-                    // std :: string alt = readseq.substr(current_readpos, 1);
-                    // std :: transform(alt.begin(), alt.end(), alt.begin(), ::toupper);
+                if(basequal_int >= opt->baseQ){
+                    char ref = std:: toupper(chr_reference[current_refpos-1]);
                     char alt = std:: toupper(readseq[current_readpos]);
                     VRT_info addsnp;
                     addsnp.suppvrt_read = 1;
+                    addsnp.REF = ref;
                     addsnp.ALT = alt;
                     addsnp.length_in_ref = 1;
                     addsnp.length_in_read = 1;
@@ -505,6 +425,7 @@ void load_bed(char *BED_PATH, char *chrID, std :: vector <range_homo> & homo_ran
 }
 
 int find_homo(std :: vector <range_homo> homo_ran, uint32_t refpos){
+    if(homo_ran.empty()) return 0;
     int mid, low = 0, high = homo_ran.size()-1;
     if(refpos<homo_ran[low].start || refpos>homo_ran[high].end) return 0;
     while (low<=high) {
@@ -518,23 +439,27 @@ int find_homo(std :: vector <range_homo> homo_ran, uint32_t refpos){
     return 0;
 }
 
-void create_candidate_code(char *DUPBED_PATH, char *BAM_PATH, char *INDEX_PATH, int give_chrid, uint64_t readbam_start, uint64_t readbam_end, std :: map<uint32_t , PosInfo> & candidata_p1) {// analize bam file
+void create_candidate_code(uint64_t readbam_start, uint64_t readbam_end, std :: map<uint32_t , PosInfo> & candidata_p1) {// analize bam file
 
     std :: vector <range_homo> dup_ran;
-    load_bed(DUPBED_PATH, opt->chrID, dup_ran);
+    if(strcmp(opt->dup_bed_path, "NULL") != 0) 
+    {
+        load_bed(opt->dup_bed_path, opt->chrID, dup_ran);
+    }
     std :: map <uint32_t , int > secondaryReads;
     std ::map<uint32_t, PosInfo> pos_infos; // real_refpos , posinfo
-    Simple_ref_handler ref;
-    ref.load_bin_ref(INDEX_PATH);
 
-    // std :: clock_t c_start1 = std :: clock();
+    std :: string chr_reference;
+    readFasta_wholechr(opt->ref_path, opt->chrID, chr_reference);
+    
+
     char * region = (char *)malloc(1024);
     snprintf(region, 1024, "%s:%d-%d", opt->chrID, opt->readbam_start, opt->readbam_end);
 
-    samFile *bam_file = sam_open(BAM_PATH, "r");
-    samFile *bam_in = sam_open(BAM_PATH, "r"); // open bam file
+    samFile *bam_file = sam_open(opt->bam_path, "r");
+    samFile *bam_in = sam_open(opt->bam_path, "r"); // open bam file
     bam_hdr_t *bam_header = sam_hdr_read(bam_file);
-    hts_idx_t *idxt = hts_idx_load(BAM_PATH, 1);
+    hts_idx_t *idxt = hts_idx_load(opt->bam_path, 1);
     hts_itr_t *itrt = bam_itr_querys(idxt, bam_header, region);
     bam1_t *readinbam = bam_init1();
     while (sam_itr_next(bam_in, itrt, readinbam) >= 0) {
@@ -595,15 +520,12 @@ void create_candidate_code(char *DUPBED_PATH, char *BAM_PATH, char *INDEX_PATH, 
                     if (temp[temp_size-1] == 'S'){
                         current_readpos = current_readpos + change_size;
                     }else if (temp[temp_size - 1] == 'M'){
-                        std :: string refpart;
-                        ref.load_ref_from_buff(give_chrid, current_refpos, change_size, refpart);
+                        std :: string refpart = splitFasta(chr_reference, opt->length, opt->chrID, current_refpos, change_size);
                         std :: string readpart = readseq.substr(current_readpos, change_size);
                         char Aref,Aread;
                         for (int i = 0; i < change_size; i++) {
                                 Aref = refpart[i];
                                 Aread = std::toupper(readpart[i]);
-                                // uint32_t xpos = current_readpos+i;
-                                // Aread = std::toupper(readseq[xpos]);
                                 if(Aref == Aread){ // match
                                     match = match + 1;
                                 } else{ // mismatch
@@ -638,7 +560,7 @@ void create_candidate_code(char *DUPBED_PATH, char *BAM_PATH, char *INDEX_PATH, 
                 continue;
             }
 
-            // process poses before the start_readalnref_pos
+    // process poses before the start_readalnref_pos
             std :: map<uint32_t, PosInfo>::iterator itpos = pos_infos.begin();
             while (itpos != pos_infos.end()) { // the read's chrID can find in map
                 if (itpos->first > start_readalnref_pos) break;
@@ -699,13 +621,9 @@ void create_candidate_code(char *DUPBED_PATH, char *BAM_PATH, char *INDEX_PATH, 
                 itpos = pos_infos.erase(itpos);
             }
             // add newread_pos code
-            addreadposin_code(ref, cigar_sp, chrid, readname, stand, start_readalnref_pos, readseq, basequal, pos_infos);
+            addreadposin_code(chr_reference, cigar_sp, readname, stand, start_readalnref_pos, readseq, basequal, pos_infos);
         }
     }
-
-    // std::clock_t c_end1 = std::clock();
-    // double time_elapsed_ms1 = 1000.0 * (c_end1-c_start1) / CLOCKS_PER_SEC;
-    // fprintf(stderr, "\ncreat_candidate_code P1 CPU : %.5f sec\n", time_elapsed_ms1 / 1000.0);
 
     // process the last part
     std ::map<uint32_t, PosInfo>::iterator itpos = pos_infos.begin();
@@ -774,76 +692,88 @@ void create_candidate_code(char *DUPBED_PATH, char *BAM_PATH, char *INDEX_PATH, 
     free(region);
     pos_infos.clear();
 
-    // aln pos with haplotype    
-    // std :: clock_t c_start2 = std :: clock();
 
-    MM_idx_loader *idx = (MM_idx_loader *)new (MM_idx_loader);
-    idx->load_window_ID_idx(INDEX_PATH);
-    idx->load_all_index(INDEX_PATH, NULL, true);
-    hap_string_loader_single_thread hl_r1;
-    int window_ID;
-    std::string ref_str;
-    String_list_and_var_list hl_str_v;
-    uint32_t aln_start_refpos = 0;
-    int start_back = 10;
-    std ::map<uint32_t, PosInfo>::iterator itcandidateP1 = candidata_p1.begin(); // real_refpos , vrtinfos
-    while (itcandidateP1 != candidata_p1.end()) { // which pos
-        int maxvrtlength = 1;
-        uint32_t realrefpos = itcandidateP1->first;
-        // change variable
-        if (realrefpos + maxvrtlength >= aln_start_refpos + 149) {
-            aln_start_refpos = realrefpos - start_back;
-            // start(the first block)
-            if (realrefpos + maxvrtlength < start_back)
-                aln_start_refpos = 0;
-            // load from buff
-            window_ID = hl_r1.get_windows_ID(give_chrint, aln_start_refpos, idx);
-            // reference 300bp part
-            ref.load_ref_from_buff(idx->wb_info[window_ID].chrID, idx->wb_info[window_ID].region_st, idx->wb_info[window_ID].region_length, ref_str);
-            // heplotype sv
-            hl_str_v = hl_r1.get_string_list_and_var_list(window_ID, ref_str, idx);
-        }
-        // aln pos with haplotype
-        if (realrefpos + maxvrtlength < aln_start_refpos + 149) {
-            uint32_t gap_s_refpos = realrefpos - idx->wb_info[window_ID].region_st;
-            for (int onevrtF = 0; onevrtF < itcandidateP1->second.Vrts.size(); onevrtF++) { // one vrt
-                int findinhpflag = 0;
-                std ::string readsv = itcandidateP1->second.Vrts[onevrtF].ALT;
-                for (auto hp_one : hl_str_v.var_l) { // one hp
-                    for (int i = 0; i < hp_one.size(); i++) { // one hp's one sv
-                        if (hp_one[i].ref_pos < gap_s_refpos)
-                            continue;
-                        if (gap_s_refpos < hp_one[i].ref_pos)
-                            break;
-
-                        if (gap_s_refpos == hp_one[i].ref_pos && itcandidateP1->second.Vrts[onevrtF].length_in_ref == hp_one[i].REF.size()) {
-                            std ::string hp_vrtstr = hp_one[i].ALT;
-                            if (hp_vrtstr == readsv) {
-                                itcandidateP1->second.Vrts[onevrtF].isknown = 0;
-                                itcandidateP1->second.Vrts[onevrtF].REF = hp_one[i].REF;
-                                findinhpflag = 1;
-                                break;
-                            }
-                        }
-                    }
-                    if (findinhpflag == 1) break;
-                }
-                if (findinhpflag == 0) {
-                    itcandidateP1->second.Vrts[onevrtF].isknown = 1;
-                    itcandidateP1->second.Vrts[onevrtF].REF = ref_str.substr(gap_s_refpos, itcandidateP1->second.Vrts[onevrtF].length_in_ref);
-                }
+    // aln pos with haplotype
+    if(strcmp(opt->index_path, "NULL") != 0){
+        int give_chrint = -1;
+        Simple_ref_handler refID;
+        refID.load_bin_ref(opt->index_path);
+        int ref_N = refID.get_chr_N();
+        for (int refi = 0; refi < ref_N; refi++) {
+            std :: string chr_name = refID.get_chr_name(refi);
+            if(opt->chrID == chr_name){
+                give_chrint = refi;
+                break;
             }
         }
-        itcandidateP1++;
+        if(give_chrint == -1){//default unknow(1)
+        }else{
+            Simple_ref_handler ref;
+            ref.load_bin_ref(opt->index_path);
+            MM_idx_loader *idx = (MM_idx_loader *)new (MM_idx_loader);
+            idx->load_window_ID_idx(opt->index_path);
+            idx->load_all_index(opt->index_path, NULL, true);
+            hap_string_loader_single_thread hl_r1;
+            int window_ID;
+            std::string ref_str;
+            String_list_and_var_list hl_str_v;
+            uint32_t aln_start_refpos = 0;
+            int start_back = 10;
+            std ::map<uint32_t, PosInfo>::iterator itcandidateP1 = candidata_p1.begin(); // real_refpos , vrtinfos
+            while (itcandidateP1 != candidata_p1.end()) { // which pos
+                int maxvrtlength = 1;
+                uint32_t realrefpos = itcandidateP1->first;
+                // change variable
+                if (realrefpos + maxvrtlength >= aln_start_refpos + 149) {
+                    aln_start_refpos = realrefpos - start_back;
+                    // start(the first block)
+                    if (realrefpos + maxvrtlength < start_back)
+                        aln_start_refpos = 0;
+                    // load from buff
+                    window_ID = hl_r1.get_windows_ID(give_chrint, aln_start_refpos, idx);
+                    // reference 300bp part
+                    ref.load_ref_from_buff(idx->wb_info[window_ID].chrID, idx->wb_info[window_ID].region_st, idx->wb_info[window_ID].region_length, ref_str);
+                    // heplotype sv
+                    hl_str_v = hl_r1.get_string_list_and_var_list(window_ID, ref_str, idx);
+                }
+                // aln pos with haplotype
+                if (realrefpos + maxvrtlength < aln_start_refpos + 149) {
+                    uint32_t gap_s_refpos = realrefpos - idx->wb_info[window_ID].region_st;
+                    for (int onevrtF = 0; onevrtF < itcandidateP1->second.Vrts.size(); onevrtF++) { // one vrt
+                        int findinhpflag = 0;
+                        std ::string readsv = itcandidateP1->second.Vrts[onevrtF].ALT;
+                        for (auto hp_one : hl_str_v.var_l) { // one hp
+                            for (int i = 0; i < hp_one.size(); i++) { // one hp's one sv
+                                if (hp_one[i].ref_pos < gap_s_refpos)
+                                    continue;
+                                if (gap_s_refpos < hp_one[i].ref_pos)
+                                    break;
+
+                                if (gap_s_refpos == hp_one[i].ref_pos && itcandidateP1->second.Vrts[onevrtF].length_in_ref == hp_one[i].REF.size()) {
+                                    std ::string hp_vrtstr = hp_one[i].ALT;
+                                    if (hp_vrtstr == readsv) {
+                                        itcandidateP1->second.Vrts[onevrtF].isknown = 0;
+                                        findinhpflag = 1;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (findinhpflag == 1) break;
+                        }
+                        if (findinhpflag == 0) {
+                            itcandidateP1->second.Vrts[onevrtF].isknown = 1;
+                        }
+                    }
+                }
+                itcandidateP1++;
+            }
+            delete (idx);
+            idx = nullptr;
+        }
     }
-    delete (idx);
-    idx = nullptr;
-    // std::clock_t c_end2 = std::clock();
-    // double time_elapsed_ms2 = 1000.0 * (c_end2-c_start2) / CLOCKS_PER_SEC;
-    // fprintf(stderr, "\ncreat_candidate_code P2 CPU : %.5f sec\n", time_elapsed_ms2 / 1000.0);
 }
 
-void create_highvrt_p2vrt(char *BED_PATH, std :: map<uint32_t , PosInfo> candidata_p1, std :: vector <snvVRT> &ResultSnv, std :: map <string, vector<vrtPOS_bam>> &p2vrtpos, std :: map<uint32_t, std :: vector <P2vrt>> &p2vrt){
+void create_highvrt_p2vrt(std :: map<uint32_t , PosInfo> candidata_p1, std :: vector <snvVRT> &ResultSnv, std :: map <string, vector<vrtPOS_bam>> &p2vrtpos, std :: map<uint32_t, std :: vector <P2vrt>> &p2vrt){
     std ::vector<uint32_t> snv_posline;
     snv_posline.push_back(0);
     std ::map<uint32_t, PosInfo>::iterator itcan1 = candidata_p1.begin();
@@ -855,7 +785,9 @@ void create_highvrt_p2vrt(char *BED_PATH, std :: map<uint32_t , PosInfo> candida
     sort(snv_posline.begin(), snv_posline.end());
 
     std :: vector <range_homo> homo_ran;
-    load_bed(BED_PATH, opt->chrID, homo_ran);
+    if(strcmp(opt->bed_path, "NULL") != 0) {
+        load_bed(opt->bed_path, opt->chrID, homo_ran);
+    }
 
     uint32_t per_pos, next_pos;
     for (int snvpos_inx = 1; snvpos_inx < snv_posline.size() - 1; snvpos_inx++) { // every pos process
@@ -895,6 +827,7 @@ void create_highvrt_p2vrt(char *BED_PATH, std :: map<uint32_t , PosInfo> candida
                         if((onevrt.isknown == 0 && rate_ >= 0.3) || (rate_ >= 0.7 && (per_pos <= itcan2->first-10 && next_pos>=itcan2->first+10 && vrtNUM == 1))){
                             ifResult = 1;
                         }
+                        // ifResult = 1;
                     }
                      
                     if (ifResult == 1) { // part1 result
@@ -941,6 +874,7 @@ void create_highvrt_p2vrt(char *BED_PATH, std :: map<uint32_t , PosInfo> candida
                         if((onevrt.isknown == 0 && rate_ >= 0.3) || (rate_ >= 0.7 && (per_pos <= itcan2->first-10 && next_pos>=itcan2->first+10 && vrtNUM == 1))){
                             ifResult = 1;
                         }
+                        // ifResult = 1;
                     }
                     if (ifResult == 1) {
                         snvVRT c1;
@@ -995,17 +929,19 @@ void create_highvrt_p2vrt(char *BED_PATH, std :: map<uint32_t , PosInfo> candida
     }
 }
 
+
+
 //part 2--------------------------------------------------------------------------------------
 
 
-void load_read_part2_bam(char *BAM_PATH, std :: map <string, std :: vector<vrtPOS_bam>>  p2vrtpos, std :: map <int,std :: vector <readstr_name>> &clupos_str, int give_chrid, uint32_t readbam_start, uint32_t readbam_end){
+void load_read_part2_bam(std :: map <string, std :: vector<vrtPOS_bam>>  p2vrtpos, std :: map <int,std :: vector <readstr_name>> &clupos_str, uint32_t readbam_start, uint32_t readbam_end){
     char * region = (char *)malloc(1024);
     snprintf(region, 1024, "%s:%d-%d", opt->chrID, opt->readbam_start, opt->readbam_end);
 
-    samFile *bam_file = sam_open(BAM_PATH, "r");
-    samFile *bam_in = sam_open(BAM_PATH, "r"); // open bam file
+    samFile *bam_file = sam_open(opt->bam_path, "r");
+    samFile *bam_in = sam_open(opt->bam_path, "r"); // open bam file
     bam_hdr_t *bam_header = sam_hdr_read(bam_file);
-    hts_idx_t *idxt = hts_idx_load(BAM_PATH, 1);
+    hts_idx_t *idxt = hts_idx_load(opt->bam_path, 1);
     hts_itr_t *itrt = bam_itr_querys(idxt, bam_header, region);
     bam1_t *readinbam = bam_init1();
     while (sam_itr_next(bam_in, itrt, readinbam) >= 0) {
@@ -1394,7 +1330,7 @@ int edlib_distance(std :: vector <readstr_name> reads_str, std :: string refstr,
     return allnum;
 }
 
-void analyze_K2snv(std :: string refstr, std :: string consensus, std :: string cigar, uint32_t startrefpos, int suppallnum, int suppsnvnum, int chrID, std :: vector <P2vrt> posp2vrt, std :: vector <lowsnvVRT> &ReaultV_add) {
+void analyze_K2snv(std :: string refstr, std :: string consensus, std :: string cigar, uint32_t startrefpos, int suppallnum, int suppsnvnum, std :: vector <P2vrt> posp2vrt, std :: vector <lowsnvVRT> &ReaultV_add) {
 
     int pos_start_ref = 0, pos_start_read = 0;
     std ::string cigarX = "";
@@ -1567,39 +1503,22 @@ void analyze_K2snv(std :: string refstr, std :: string consensus, std :: string 
 }
 
 void Re_align(std :: map<uint32_t, std :: vector <P2vrt>> p2vrt, std :: vector <ConsensusINFO> consensus_str, std :: map <int,std :: vector <readstr_name>> clupos_str, std :: vector <lowsnvVRT> &ResultSnv){
-    Simple_ref_handler ref;
-    ref.load_bin_ref(opt->index_path);
-    MM_idx_loader *idx = (MM_idx_loader *)new (MM_idx_loader);
-    idx -> load_window_ID_idx(opt->index_path);
-    idx -> load_all_index(opt->index_path, NULL, true);
+    std :: string chr_reference;
+    readFasta_wholechr(opt->ref_path, opt->chrID, chr_reference);
+
     for(auto constr : consensus_str){
         //load sub reference by consensus length
-        hap_string_loader_single_thread hl_r1; 
-        int window_ID = hl_r1.get_windows_ID(give_chrint, constr.ref_pos, idx);
-        std::string ref_str;
-        ref.load_ref_from_buff(idx->wb_info[window_ID].chrID, idx->wb_info[window_ID].region_st, idx->wb_info[window_ID].region_length, ref_str);
         std :: map<uint32_t, std :: vector <P2vrt>> :: iterator itp2vrt = p2vrt.find(constr.ref_pos);
         if (itp2vrt != p2vrt.end()) {
             std :: vector <string> subref_v;
-            int start = constr.ref_pos - idx->wb_info[window_ID].region_st;
             for(auto oneconsensus : constr.con_suppr){
                 int strlength = 100;
-                string subref;
-                if (ref_str.length() >= strlength + start){
-                    subref = ref_str.substr(start,strlength);
-                } else{
-                    uint32_t refpostmp = constr.ref_pos + 25;
-                    window_ID = hl_r1.get_windows_ID(give_chrint, refpostmp, idx);
-                    ref.load_ref_from_buff(idx->wb_info[window_ID].chrID, idx->wb_info[window_ID].region_st, idx->wb_info[window_ID].region_length, ref_str);
-                    start = constr.ref_pos + 1 - idx->wb_info[window_ID].region_st;
-                    subref = ref_str.substr(start,strlength);
-                }
-                subref_v.push_back(subref);
+                std :: string refpart;
+                refpart = splitFasta(chr_reference, opt->length, opt->chrID, constr.ref_pos, strlength);
+                subref_v.push_back(refpart);
             }
 
             int idxx = constr.ref_pos/50;
-            // ksw_score(readstr_clu[give_chrint].clupos_str[idxx], constr.con_suppr, subref_v[0]);
-            // int allnum = edlib_distance(clupos_str[idxx], subref_v[0], constr.con_suppr);
             int concluid = 0;
             std :: vector <lowsnvVRT> ResultV_add;
             for(auto oneconsensus : constr.con_suppr){
@@ -1608,7 +1527,7 @@ void Re_align(std :: map<uint32_t, std :: vector <P2vrt>> p2vrt, std :: vector <
                 std :: string cigar = "";
                 int score= ksw_align(subref_v[concluid], oneconsensus.consensus, strlength, strlengthcon, 1, 4, 8, 2, cigar);
                 if(score > 0){
-                    analyze_K2snv(subref_v[concluid], oneconsensus.consensus, cigar, constr.ref_pos, constr.all_cov_readnum, oneconsensus.suppsnv_readnum, give_chrint , itp2vrt->second , ResultV_add);
+                    analyze_K2snv(subref_v[concluid], oneconsensus.consensus, cigar, constr.ref_pos, constr.all_cov_readnum, oneconsensus.suppsnv_readnum, itp2vrt->second , ResultV_add);
                 }
                 concluid = concluid + 1;
             }
@@ -1636,11 +1555,9 @@ void Re_align(std :: map<uint32_t, std :: vector <P2vrt>> p2vrt, std :: vector <
             }
         }
     }
-    delete(idx);
-    idx = nullptr;
 }
 
-int printS1vcf(char *STEP1vcfInfo_path, char *highvcf_path, std :: vector <snvVRT> ResultSnv) {
+int printS1vcf(std :: vector <snvVRT> ResultSnv) {
     if(ResultSnv.empty()) return 2;
     std :: vector <uint32_t> ResultSnv_refpos;
     sort(ResultSnv.begin() , ResultSnv.end());
@@ -1653,23 +1570,10 @@ int printS1vcf(char *STEP1vcfInfo_path, char *highvcf_path, std :: vector <snvVR
     strftime(tmp, sizeof(tmp), "%Y%m%d", localtime(&data));
 
     ofstream STEP1snvinfo_file;
-    STEP1snvinfo_file.open(STEP1vcfInfo_path);
+    STEP1snvinfo_file.open(opt->STEP1vcfInfo_path);
 
     ofstream snvhigh_file;
-    snvhigh_file.open(highvcf_path);
-    // snvhigh_file << "##fileformat=VCFv4.2" << endl;
-    // snvhigh_file << "##fileData=" << tmp << endl;
-    // snvhigh_file << "##FILTER=<ID=PASS,Description=\"All filters passed\">\n";
-    // snvhigh_file << "##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description=\"Imprecise structural variation\">\n";
-    // snvhigh_file << "##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">\n";
-    // snvhigh_file << "##FORMAT=<ID=GQ,Number=1,Type=Integer,Description=\"Genotype Quality\">\n";
-
-    // std :: map <int , refid> :: iterator itrefinfo = int2chrID.begin();
-    // while (itrefinfo != int2chrID.end()) {;
-    //     snvhigh_file << "##contig=<ID=" << itrefinfo->second.chrid << ",length=" << itrefinfo->second.length << ">\n";
-    //     itrefinfo++;
-    // }
-    // snvhigh_file << "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tHG002" << endl;
+    snvhigh_file.open(opt->highvcf_path);
 
     // body
     int snvpos_next = 1,pass = 0;
@@ -1685,7 +1589,7 @@ int printS1vcf(char *STEP1vcfInfo_path, char *highvcf_path, std :: vector <snvVR
             STEP1snvinfo_file << oneSnv.ref_pos << "\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << oneSnv.outinfo.QUAL << "\t0/1" << "\t" << oneSnv.outinfo.GQ << endl;
             STEP1snvinfo_file << oneSnv.ref_pos << "\t" << ResultSnv[snvpos_next].REF << "\t" << ResultSnv[snvpos_next].ALT << "\t" << ResultSnv[snvpos_next].outinfo.QUAL << "\t1/0" << "\t" << ResultSnv[snvpos_next].outinfo.GQ << endl;
             if(oneSnv.outinfo.GQ > 15){
-                snvhigh_file << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+                snvhigh_file << opt->chrID << "\t" << oneSnv.ref_pos << "\t"
                     << ".\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << oneSnv.outinfo.QUAL << "\t"
                     << "PASS"
                     << "\t"
@@ -1696,7 +1600,7 @@ int printS1vcf(char *STEP1vcfInfo_path, char *highvcf_path, std :: vector <snvVR
                     << "0/1"
                     << ":" << oneSnv.outinfo.GQ << endl;
             } if(ResultSnv[snvpos_next].outinfo.GQ > 15){
-                snvhigh_file << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+                snvhigh_file << opt->chrID << "\t" << oneSnv.ref_pos << "\t"
                     << ".\t" << ResultSnv[snvpos_next].REF << "\t" << ResultSnv[snvpos_next].ALT << "\t" << ResultSnv[snvpos_next].outinfo.QUAL << "\t"
                     << "PASS"
                     << "\t"
@@ -1713,7 +1617,7 @@ int printS1vcf(char *STEP1vcfInfo_path, char *highvcf_path, std :: vector <snvVR
         } else {//0/1 or 1/1
             STEP1snvinfo_file << oneSnv.ref_pos << "\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << oneSnv.outinfo.QUAL << "\t" << oneSnv.outinfo.GT << "\t" << oneSnv.outinfo.GQ << endl;
             if((oneSnv.outinfo.GT == "0/1" || oneSnv.outinfo.GT == "1/0") && oneSnv.outinfo.GQ > 15){
-                snvhigh_file << "chr" << give_chrint + 1 << "\t" << oneSnv.ref_pos << "\t"
+                snvhigh_file << opt->chrID << "\t" << oneSnv.ref_pos << "\t"
                     << ".\t" << oneSnv.REF << "\t" << oneSnv.ALT << "\t" << oneSnv.outinfo.QUAL << "\t"
                     << "PASS"
                     << "\t"
@@ -1732,12 +1636,12 @@ int printS1vcf(char *STEP1vcfInfo_path, char *highvcf_path, std :: vector <snvVR
 }
 
 
-int printALLsnvvcf(char *SNV_PATH, char *STEP1vcfInfo_path, std :: vector <lowsnvVRT> &ResultLowsnv){
+int printALLsnvvcf(std :: vector <lowsnvVRT> &ResultLowsnv){
     /*
     load vcf from step1
     */
     ifstream ifs1vrtinfo;
-    ifs1vrtinfo.open(STEP1vcfInfo_path, ios::in);
+    ifs1vrtinfo.open(opt->STEP1vcfInfo_path, ios::in);
     std :: string S1vrtline;
     while (getline(ifs1vrtinfo , S1vrtline)) {
         lowsnvVRT add_one;
@@ -1766,28 +1670,8 @@ int printALLsnvvcf(char *SNV_PATH, char *STEP1vcfInfo_path, std :: vector <lowsn
     sort(ResultSnv_refpos.begin() , ResultSnv_refpos.end());
 
     ofstream ALLsnvfile;
-    ALLsnvfile.open(SNV_PATH);
+    ALLsnvfile.open(opt->snvvcf_path);
     
-    //header
-
-    // ALLsnvfile << "##fileformat=VCFv4.2" << endl;
-    // time_t data = time(0);
-    // char tmp[32] = {""};
-    // strftime(tmp, sizeof(tmp), "%Y%m%d", localtime(&data));
-    // ALLsnvfile << "##fileData=" << tmp << endl;
-    // ALLsnvfile << "##FILTER=<ID=PASS,Description=\"All filters passed\">\n";
-    // ALLsnvfile << "##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description=\"Imprecise structural variation\">\n";
-    // ALLsnvfile << "##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">\n";
-    // ALLsnvfile << "##FORMAT=<ID=GQ,Number=1,Type=Integer,Description=\"Genotype Quality\">\n";
-    // ALLsnvfile << "##ALT=<ID=DEL,Description=\"Deletion\">\n";
-    // ALLsnvfile << "##ALT=<ID=INS,Description=\"Insertion\">\n";
-    // std :: map <int , refid> :: iterator itrefinfo = int2chrID.begin();
-    // while (itrefinfo != int2chrID.end()) {
-    //     ALLsnvfile << "##contig=<ID=" << itrefinfo->second.chrid << ",length=" << itrefinfo->second.length << ">\n";
-    //     itrefinfo++;
-    // }
-    // ALLsnvfile << "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tSAMPLE" << endl;
-
     // body
     int snvpos_next = 1,pass = 0;
     for(auto onelow : ResultLowsnv){
@@ -1804,7 +1688,7 @@ int printALLsnvvcf(char *SNV_PATH, char *STEP1vcfInfo_path, std :: vector <lowsn
         }
         if (onelow.ref_pos == nextpos) {//the same pos has more than one vrt
             if(ResultLowsnv[snvpos_next].outinfo.GT == "0/0"){//print this snv
-                ALLsnvfile << "chr" << give_chrint + 1 << "\t" << onelow.ref_pos << "\t"
+                ALLsnvfile << opt->chrID << "\t" << onelow.ref_pos << "\t"
                     << ".\t" << onelow.REF << "\t" << onelow.ALT << "\t" << onelow.outinfo.QUAL << "\t"
                     << "PASS"
                     << "\t"
@@ -1814,7 +1698,7 @@ int printALLsnvvcf(char *SNV_PATH, char *STEP1vcfInfo_path, std :: vector <lowsn
                     << "\t" << onelow.outinfo.GT << ":" << onelow.outinfo.GQ << endl;
             }
             else{// 1/2
-                ALLsnvfile << "chr" << give_chrint + 1 << "\t" << onelow.ref_pos << "\t"
+                ALLsnvfile << opt->chrID << "\t" << onelow.ref_pos << "\t"
                     << ".\t" << onelow.REF << "\t" << onelow.ALT << "\t" << onelow.outinfo.QUAL << "\t"
                     << "PASS"
                     << "\t"
@@ -1822,7 +1706,7 @@ int printALLsnvvcf(char *SNV_PATH, char *STEP1vcfInfo_path, std :: vector <lowsn
                     << "\t"
                     << "GT:GQ"
                     << "\t" << "0/1" << ":" << onelow.outinfo.GQ << endl;
-                ALLsnvfile << "chr" << give_chrint + 1 << "\t" << onelow.ref_pos << "\t"
+                ALLsnvfile << opt->chrID << "\t" << onelow.ref_pos << "\t"
                     << ".\t" << ResultLowsnv[snvpos_next].REF << "\t" << ResultLowsnv[snvpos_next].ALT << "\t" << ResultLowsnv[snvpos_next].outinfo.QUAL << "\t"
                     << "PASS"
                     << "\t"
@@ -1834,7 +1718,7 @@ int printALLsnvvcf(char *SNV_PATH, char *STEP1vcfInfo_path, std :: vector <lowsn
             pass = 1;
             snvpos_next = snvpos_next + 1;
         } else{// 0/1 or 1/1
-            ALLsnvfile << "chr" << give_chrint + 1 << "\t" << onelow.ref_pos << "\t"
+            ALLsnvfile << opt->chrID << "\t" << onelow.ref_pos << "\t"
                 << ".\t" << onelow.REF << "\t" << onelow.ALT << "\t" << onelow.outinfo.QUAL << "\t"
                 << "PASS"
                 << "\t"

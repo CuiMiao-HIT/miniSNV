@@ -14,6 +14,8 @@ extern "C"
 
 using namespace std;
 
+void readFasta_wholechr(char* ref_path, const std::string & chrName, std::string & sequence);
+std::string splitFasta(std::string& sequence, uint32_t chrLength, const std::string& chrName, uint32_t startPos, int length);
 string getCigar(const bam1_t *b);
 char fourbits2base(uint8_t val);
 string getSeq(const bam1_t *b);

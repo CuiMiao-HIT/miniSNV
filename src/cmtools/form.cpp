@@ -8,10 +8,12 @@
 
 void opt_init(opt_t *opt) {
     strcpy(opt->index_path, "NULL");
-    strcpy(opt->bam_path, "NULL");
+    strcpy(opt->bed_path, "NULL");
+    strcpy(opt->dup_bed_path, "NULL");
     strcpy(opt->snvvcf_path, "./merge.vcf");
     opt->readbam_start = 0;
     opt->reads_R = 0.98;
+    opt->baseQ = 13;
 }
 
 int help_usage() {
@@ -65,16 +67,19 @@ int caller_usage() {
     return 1; 
 }
 
-char *const short_options = "i:b:d:u:c:s:e:R:t:o:h:p:P:v:g:a";
+char *const short_options = "r:i:b:d:u:c:l:s:e:R:Q:t:o:h:p:P:v:g:a";
 struct option long_options[] = {
+    { "fin_ref", 1, NULL, 'r'},
     { "fin_index", 1, NULL, 'i'},
     { "fin_bam", 1, NULL, 'b'},
     { "fin_bed", 1, NULL, 'd'},
     { "dup_bed", 1, NULL, 'u'},
     { "chr", 1, NULL, 'c'},
+    { "length", 1, NULL, 'l'},
     { "start", 1, NULL, 's'},
     { "end", 1, NULL, 'e'},
     { "read_Ratio", 1, NULL, 'R'},
+    { "baseQ", 1, NULL, 'Q'},
     { "tmp_outdir", 1, NULL, 't'},
     { "p2vrt", 1, NULL, 'p'},
     { "p2vrtpos", 1, NULL, 'P'},
@@ -93,6 +98,7 @@ int opt_parse(int argc, char *argv[], opt_t *opt) {
     if (argc == 2) return caller_usage();
     while((optc = getopt_long(argc, argv, short_options, long_options, &option_index))>=0){ 
         switch(optc){
+            case 'r': strcpy(opt->ref_path, optarg); break;
             case 'i': strcpy(opt->index_path, optarg); break;
             case 'b': strcpy(opt->bam_path, optarg); break;
             case 'd': strcpy(opt->bed_path, optarg); break;
@@ -100,9 +106,11 @@ int opt_parse(int argc, char *argv[], opt_t *opt) {
             case 't': strcpy(opt->tmp_outdir, optarg); break;
             case 'o': strcpy(opt->snvvcf_path, optarg); break;
             case 'c': strcpy(opt->chrID, optarg);  break;
+            case 'l': opt->length = atoi(optarg); break;
             case 's': opt->readbam_start = atoi(optarg); break;
-            case 'e': opt->readbam_end = atoi(optarg); opt->ifend = 1; break;
+            case 'e': opt->readbam_end = atoi(optarg); break;
             case 'R': opt->reads_R = atof(optarg); break;
+            case 'Q': opt->baseQ = atof(optarg); break;
             case 'p': strcpy(opt->p2vrt_infopath, optarg); break;
             case 'P': strcpy(opt->p2vrtpos_infopath, optarg); break;
             case 'v': strcpy(opt->STEP1vcfInfo_path, optarg); break;

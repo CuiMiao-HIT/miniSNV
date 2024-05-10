@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/cuimiao/miniSNV'
+make: Leaving directory '/home/cuimiao/miniSNV'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

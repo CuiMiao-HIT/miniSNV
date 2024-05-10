@@ -1,7 +1,50 @@
 
 #include "load_bam.hpp"
 
+#include <fstream>
+
 using namespace std;
+
+void readFasta_wholechr(char* ref_path, const std::string & chrName, std::string & sequence) {
+    ifstream ifref;
+    ifref.open(ref_path, ios::in);
+    std::string refline;
+    bool foundChr = false;
+    // int chrLength = 0;
+
+    while (getline(ifref, refline)) {
+        if (refline.empty()) continue;
+        if (refline[0] == '>') {
+            if (foundChr) break;
+            stringstream bed_ss(refline);
+            string sp1;
+            bed_ss >> sp1;
+            if (sp1.substr(1) == chrName) {
+                foundChr = true;
+            }
+        } else if (foundChr) {
+            sequence += refline;
+            // chrLength += refline.length();
+        }
+    }
+    ifref.close();
+    if (!foundChr) {
+        std::cerr << "Chromosome [" << chrName << "] not found in the file." << std::endl;
+    }
+}
+
+std::string splitFasta(std::string& sequence, uint32_t chrLength, const std::string& chrName, uint32_t startPos, int length) {
+    uint32_t startPos_next = startPos - 1;
+    if (startPos_next >= chrLength) {
+        std::cerr << "Invalid start position or length." << std::endl;
+        return "";
+    }
+    else if(startPos_next + length >= chrLength){
+        int length_end = chrLength-startPos_next;
+        return sequence.substr(startPos_next, length_end);
+    }
+    return sequence.substr(startPos_next, length);
+}
 
 string getCigar(const bam1_t *b) {
     uint32_t *data = (uint32_t *)bam_get_cigar(b);
@@ -30,12 +73,11 @@ char fourbits2base(uint8_t val) {
         case 15:
             return 'N';
         default:
-            cerr << "ERROR: Wrong base with value "<< (int)val << endl ;
+            // cerr << "ERROR: Wrong base with value "<< (int)val << endl ;
             return 'N';
     }
 }
 
-// get seq 序列的信息记录在8bit 的数据结构中，前4bit 是前面的碱基，后4bit 是后面的碱基
 string getSeq(const bam1_t *b) {
     uint8_t *data = bam_get_seq(b);
     int len = b->core.l_qseq;

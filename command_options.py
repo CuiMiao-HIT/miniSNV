@@ -19,10 +19,3 @@ def command_option_string_from(command):
 def command_string_from(command_options):
     return " ".join(x for x in map(command_option_string_from, command_options) if x is not None)
 
-
-def command_option_from(args_value, option_name, option_value=None):
-    if args_value is None:
-        return None
-    if args_value is True and option_value is None:
-        return CommandOptionWithNoValue(option_name)
-    return CommandOption(option_name, option_value)

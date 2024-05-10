@@ -14,10 +14,8 @@ typedef struct{
     char **argv;
     
 // Parameters of input
-    char index_path[PATH_LEN];
+    char ref_path[PATH_LEN];
     char bam_path[PATH_LEN];
-    char bed_path[PATH_LEN];
-    char dup_bed_path[PATH_LEN];
     char tmp_outdir[PATH_LEN];
     char snvvcf_path[PATH_LEN];
     
@@ -29,11 +27,16 @@ typedef struct{
     char highvcf_path[PATH_LEN];
 
 // Other Parameters
-    int ifend = 0;//0:give the whole chr length 1:endpos is given
+    // int ifend = 0;//0:give the whole chr length 1:endpos is given
+    char index_path[PATH_LEN];
+    char bed_path[PATH_LEN];
+    char dup_bed_path[PATH_LEN];
     char chrID[PATH_LEN];
-    uint64_t readbam_start;
-    uint64_t readbam_end;
+    uint32_t length;
+    uint32_t readbam_start;
+    uint32_t readbam_end;
     float reads_R;
+    int baseQ;
     
 }opt_t;
 
