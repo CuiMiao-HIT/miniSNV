@@ -32,9 +32,6 @@ cd ..
 python chr_chunk_task.py \
 --fin_ref FIN_REF \
 --fin_bam FIN_BAM \
---fin_index FIN_INDEX \
---homo_bed FIN_BED(GRCh38_AllHomopolymers_gt6bp_imperfectgt10bp_slop5.bed) \
---dup_bed DUP_BED(GRCh38_segdups.bed) \
 --workDir WORKDIR
 ```
 
@@ -43,17 +40,21 @@ python chr_chunk_task.py \
 ```
 	-b, --fin_bam           BAM file input. The input file must be samtools indexed.  
 	-r, --fin_ref           FASTA reference file input. The input file must be samtools indexed.  
-	-i, --fin_index         The folder path containing a miniSNV index(five files in the folder).  
-	-hb, --homo_bed         HOMO Bed format input.  
-	-db, --dup_bed          DUP HOMO Bed format input.  
 	-o, --workDir           Work-directory for distributed job.  
 ```
 **Other parameters:**  
 ```
+	--useindex		add it if ues index.
+	-i, --fin_index         The folder path containing a miniSNV index(five files in the folder).
+	--human 		add it if human bam.
+	-hb, --homo_bed         HOMO Bed format input.  
+	-db, --dup_bed          DUP HOMO Bed format input.
 	--threads(INT)          Number of threads to use.(default : 16)  
 	--chrName               list of chrName (contig names) to be processed, separeted by comma without any blank space.  
 	--sample                Sample name in vcf file.(default : SAMPLE)  
-	--chunkWidth(INT)       Reference length to detect candidate in one loop.(default : 10000000)  
+	--chunkWidth(INT)       Reference length to detect candidate in one loop.(default : 10000000)
+	--read_Ratio(FLOAT)	read_Ratio.baseQ.(default : 0.98)
+	--baseQ(INT)		baseQ.(default :13)
 ```
 ## Contact
 Please post on [Github Issue](https://github.com/CuiMiao-HIT/miniSNV/issues) or contact cuimiao@stu.hit.edu.cn.
