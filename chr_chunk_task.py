@@ -21,7 +21,6 @@ from check import *
 majorContigs = {"chr"+str(a) for a in list(range(1,23))}.union({str(a) for a in list(range(1,23))})
 
 VERSION = 'V1.0.0'
-PROG = "XXX"
 
 class maindp(object):
 	'''
