@@ -21,6 +21,7 @@ from check import *
 majorContigs = {"chr"+str(a) for a in list(range(1,23))}.union({str(a) for a in list(range(1,23))})
 
 VERSION = 'V1.0.0'
+PROG = "miniSNV"
 
 class maindp(object):
 	'''
@@ -33,7 +34,7 @@ class maindp(object):
 	
 	Current version: %s
 	Author: Cui Miao
-	Contact: XXXXX
+	Contact: cuimiao@stu.hit.edu.cn
 
 	"""%(PROG, VERSION)
 
