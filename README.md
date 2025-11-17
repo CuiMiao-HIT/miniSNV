@@ -50,7 +50,7 @@ python chr_chunk_task.py \
 	-hb, --homo_bed         HOMO Bed format input.  
 	-db, --dup_bed          DUP HOMO Bed format input.
 	--threads(INT)          Number of threads to use.(default : 16)  
-	--chrName               List of chrName (contig names) to be processed, separeted by comma without any blank space.  
+	--chrName               List of chrName (contig names) to be processed, separated by a comma without any blank space.  
 	--sample                Sample name in vcf file.(default : SAMPLE)  
 	--chunkWidth(INT)       Reference length to detect candidate in one loop.(default : 10000000)
 	--read_Ratio(FLOAT)		Alignment consistency threshold.(default : 0.98)
