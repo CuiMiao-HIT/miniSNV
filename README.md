@@ -44,17 +44,17 @@ python chr_chunk_task.py \
 ```
 **Other parameters:**  
 ```
-	--useindex		add it if ues index.
-	-i, --fin_index         The folder path containing a miniSNV index(five files in the folder).
-	--human 		add it if human bam.
+	--useindex				Add it if ues index.
+	-i, --fin_index         The folder path containing a miniSNV index (must add --useindex)(five files in the folder).
+	--human 				Add it if human bam.
 	-hb, --homo_bed         HOMO Bed format input.  
 	-db, --dup_bed          DUP HOMO Bed format input.
 	--threads(INT)          Number of threads to use.(default : 16)  
-	--chrName               list of chrName (contig names) to be processed, separeted by comma without any blank space.  
+	--chrName               List of chrName (contig names) to be processed, separeted by comma without any blank space.  
 	--sample                Sample name in vcf file.(default : SAMPLE)  
 	--chunkWidth(INT)       Reference length to detect candidate in one loop.(default : 10000000)
-	--read_Ratio(FLOAT)	read_Ratio.baseQ.(default : 0.98)
-	--baseQ(INT)		baseQ.(default :13)
+	--read_Ratio(FLOAT)		Alignment consistency threshold.(default : 0.98)
+	--baseQ(INT)			Minimum base quality for candidate sites.(default :13)
 ```
 ## Contact
 Please post on [Github Issue](https://github.com/CuiMiao-HIT/miniSNV/issues) or contact cuimiao@stu.hit.edu.cn.
